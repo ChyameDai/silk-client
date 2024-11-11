@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: false,
   apiBaseUrl: 'http://localhost:8085',
 
   // Authentication endpoints
