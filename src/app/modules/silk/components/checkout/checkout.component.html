@@ -6,12 +6,12 @@
       <div *ngIf="cart?.items">
         <div *ngFor="let item of cart.items.products" class="cart-item">
           <span>{{ item.productName }} (x{{ item.quantity }})</span>
-          <span>${{ item.productPrice * item.quantity }}</span>
+          <span>{{ (item.productPrice * item.quantity) | currency:'USD':'symbol':'1.2-2' }}</span>
         </div>
       </div>
       <div class="total-amount">
         <span>Total:</span>
-        <span>${{ totalAmount }}</span>
+        <span>{{ totalAmount | currency:'USD':'symbol':'1.2-2' }}</span>
       </div>
     </div>
 

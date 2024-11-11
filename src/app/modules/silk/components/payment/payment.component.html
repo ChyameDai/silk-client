@@ -1,9 +1,8 @@
-<!-- payment.component.html -->
 <section class="payment-container">
   <h2>Choose Payment Method</h2>
 
   <!-- Display the Payment Amount -->
-  <p class="payment-amount">Amount to be paid: ${{ amount }}</p>
+  <p class="payment-amount">Amount to be paid: {{ amount | currency:'USD':'symbol':'1.2-2' }}</p>
 
   <div class="payment-options">
     <button (click)="onSelectPaymentMethod('creditCard')"
@@ -52,6 +51,6 @@
       </div>
     </div>
 
-    <button type="submit" [disabled]="!paymentForm.valid">Pay ${{ amount }}</button>
+    <button type="submit" [disabled]="!paymentForm.valid">Pay {{ amount | currency:'USD':'symbol':'1.2-2' }}</button>
   </form>
 </section>
