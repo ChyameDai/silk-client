@@ -1,0 +1,32 @@
+<nav class="navbar" [class.sidebar]="isMobileView" [class.sidebar-open]="isMenuOpen && isMobileView">
+  <div class="navbar-brand">
+    <a routerLink="/" class="brand-logo">Brand</a>
+
+    <!-- Mobile-only toggle button -->
+    <button
+      *ngIf="isMobileView"
+      class="nav-toggle-button"
+      (click)="toggleMenu()"
+    >
+      {{ isMenuOpen ? 'Close' : 'Menu' }}
+    </button>
+  </div>
+
+  <!-- Navigation List -->
+  <ul class="nav-list" [class.open]="isMenuOpen || !isMobileView">
+    <li *ngFor="let item of navItems" class="nav-item">
+      <ng-container *ngIf="!item.icon">
+        <a [routerLink]="item.link" class="nav-link" (click)="closeMenu()">
+          {{ item.label }}
+        </a>
+      </ng-container>
+      <ng-container *ngIf="item.icon">
+        <app-selector-box
+          [options]="[{ label: item.label, value: item.link }]"
+          placeholder="More"
+          (selectionChange)="closeMenu()"
+        ></app-selector-box>
+      </ng-container>
+    </li>
+  </ul>
+</nav>

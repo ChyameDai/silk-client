@@ -1,0 +1,37 @@
+<div class="login-container">
+  <h2 class="login-title">Login</h2>
+
+  <!-- Email Input Field -->
+  <div class="input-group">
+    <app-text-input-box
+      label="Email"
+      placeholder="Enter your email"
+      type="email"
+      [(ngModel)]="email"
+      [isInvalid]="emailInvalid"
+      errorMessage="Please enter a valid email"
+    ></app-text-input-box>
+  </div>
+
+  <!-- Password Input Field -->
+  <div class="input-group">
+    <app-text-input-box
+      label="Password"
+      placeholder="Enter your password"
+      type="password"
+      [(ngModel)]="password"
+      [isInvalid]="passwordInvalid"
+      errorMessage="Password is required"
+    ></app-text-input-box>
+  </div>
+
+  <!-- Login Button -->
+  <div class="button-container">
+    <app-button
+      class="primary"
+      [text]="loading ? 'Logging in...' : 'Login'"
+      [disabled]="loading"
+      (click)="onLogin()"
+    ></app-button>
+  </div>
+</div>

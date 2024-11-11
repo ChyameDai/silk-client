@@ -1,0 +1,17 @@
+<!-- selector-box.component.html -->
+<div class="selector-box">
+  <div class="selector-header" (click)="toggleDropdown()">
+    <span>{{ selectedLabel || placeholder }}</span>
+    <span class="arrow">{{ isOpen ? '▲' : '▼' }}</span>
+  </div>
+
+  <ul *ngIf="isOpen" class="selector-options">
+    <li
+      *ngFor="let option of options"
+      class="selector-option"
+      (click)="selectOption(option)"
+    >
+      {{ option.label }}
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,10 @@
+<!-- src/app/modules/shared/components/notification/notification.component.html -->
+<div *ngIf="visible" [ngClass]="type" class="notification">
+  <span class="notification-icon">
+    <ng-container *ngIf="type === 'success'">✔️</ng-container>
+    <ng-container *ngIf="type === 'warning'">⚠️</ng-container>
+    <ng-container *ngIf="type === 'failure'">❌</ng-container>
+  </span>
+  <span class="notification-message">{{ message }}</span>
+  <button class="close-button" (click)="onClose()">✖️</button>
+</div>

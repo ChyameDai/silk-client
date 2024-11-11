@@ -1,0 +1,79 @@
+@import 'variables';
+body, html {
+  background-color: $color-background-dark;  // Use your dark background variable
+  color: $color-text-primary;               // Set text color for consistency
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-container {
+  background-color: $color-card-dark;
+  color: $color-text-primary;
+  border-radius: $border-radius-large;
+  padding: 1.5rem;
+  box-shadow: $shadow-card;
+  max-width: 90%;
+  width: 100%;
+  margin: 2rem auto;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  h2 {
+    font-size: $font-size-title;
+    color: $color-text-primary;
+    margin-bottom: 1rem;
+  }
+
+  app-text-input-box {
+    margin-bottom: 1rem;
+
+    input {
+      background-color: $color-input-background;
+      color: $color-text-primary;
+      border: 1px solid transparent;
+      border-radius: $border-radius-medium;
+      padding: 0.75rem;
+      width: 100%;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+
+      &::placeholder {
+        color: $color-text-tertiary;
+      }
+
+      &:focus {
+        background-color: $color-input-focus;
+        border-color: $color-accent;
+      }
+    }
+
+    .error-message {
+      color: $color-danger;
+      font-size: $font-size-small;
+      margin-top: 0.25rem;
+    }
+  }
+}
+
+  app-button button {
+    background-color: $color-accent;
+    color: $color-text-primary; // Ensure this is set to white or visible color
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: $font-size-button;
+    cursor: pointer;
+    transition: background-color $transition-duration $transition-ease;
+  }
+
+  app-button button:hover {
+    background-color: darken($color-accent, 10%);
+  }
+
+  app-button button:focus {
+    background-color: darken($color-accent, 5%);
+    outline: 2px solid lighten($color-accent, 15%);
+  }
+
+

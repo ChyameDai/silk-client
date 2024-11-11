@@ -1,0 +1,54 @@
+// notification.component.scss
+@import 'variables';
+
+.notification {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: $border-radius-small;
+  box-shadow: 0 4px 10px $color-shadow;
+  font-weight: bold;
+  color: $color-text-primary;
+  transition: opacity $transition-duration $transition-ease;
+  position: relative;
+
+  &.success {
+    background-color: #28a745;
+    color: #ffffff;
+  }
+
+  &.warning {
+    background-color: #ffc107;
+    color: #000000;
+  }
+
+  &.failure {
+    background-color: #dc3545;
+    color: #ffffff;
+  }
+}
+
+.notification-icon {
+  margin-right: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.notification-message {
+  flex-grow: 1;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  transition: color $transition-duration $transition-ease;
+
+  &:hover {
+    color: $color-text-secondary;
+  }
+}

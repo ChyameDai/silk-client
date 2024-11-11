@@ -1,0 +1,36 @@
+<!-- product-card.component.html -->
+<div class="product-card">
+  <div class="product-image-container">
+    <img *ngIf="imageUrl" [src]="imageUrl" [alt]="name" class="product-image" />
+    <div class="product-overlay">
+      <button
+        class="quick-view-btn"
+        (click)="onActionClick(buttonText2)">
+        <i class="fas fa-eye"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="product-content">
+    <h3 class="product-title">{{ name }}</h3>
+
+    <div class="product-info">
+      <p class="product-price">${{ price | number: '1.2-2' }}</p>
+      <p *ngIf="description" class="product-description">{{ description }}</p>
+    </div>
+
+    <div class="product-actions">
+      <button
+        class="action-button primary-button"
+        (click)="onActionClick(buttonText)">
+        <i class="fas fa-shopping-cart"></i>
+        {{ buttonText }}
+      </button>
+      <button
+        class="action-button secondary-button"
+        (click)="onActionClick(buttonText2)">
+        {{ buttonText2 }}
+      </button>
+    </div>
+  </div>
+</div>

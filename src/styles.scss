@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'variables';
+
+html, body {
+  background-color: $color-background-dark; // Dark background for the entire app
+  color: $color-text-primary;               // Primary text color for consistency
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;                   // Stacks content vertically
+}
+
+#app-root {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;                             // Makes the app container take the remaining space
+  width: 100%;
+  height: 100%;
+}

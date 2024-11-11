@@ -1,0 +1,141 @@
+<ng-container>
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="!cart" role="alert" aria-live="polite">
+    <div class="spinner" aria-hidden="true"></div>
+    <span class="loading-text">Loading your shopping cart...</span>
+  </div>
+<app-loading-spinner [isActive]="this.isLoading"></app-loading-spinner>
+  <!-- Main Cart Content -->
+  <div *ngIf="cart" class="cart-container" role="main" aria-label="Shopping Cart">
+    <!-- Cart Header -->
+    <header class="cart-header">
+      <h1 id="cart-title">Shopping Cart</h1>
+      <div class="cart-actions" role="toolbar" aria-label="Cart actions">
+        <button
+          class="share-btn"
+          (click)="shareCart()"
+          aria-label="Share cart">
+          <i class="fas fa-share-alt" aria-hidden="true"></i>
+          <span>Share Cart</span>
+        </button>
+        <button
+          class="quick-checkout-btn"
+          *ngIf="quickCheckoutAvailable"
+          (click)="quickCheckout()"
+          [disabled]="totalAmount === 0 || this.isLoading"
+          aria-label="Proceed to express checkout">
+          <i class="fas fa-bolt" aria-hidden="true"></i>
+          <span>Express Checkout</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Cart Content -->
+    <ng-container *ngIf="groupedItems.length > 0">
+      <div class="cart-layout">
+        <!-- Cart Items Section -->
+        <section class="cart-main" aria-labelledby="cart-items-heading" role="region">
+          <div
+            class="section-header"
+            (click)="toggleExpansion()"
+            role="button"
+            [attr.aria-expanded]="isExpanded"
+            tabindex="0">
+            <h2 id="cart-items-heading">Cart Items</h2>
+            <i class="fas" [class.fa-chevron-down]="!isExpanded" [class.fa-chevron-up]="isExpanded" aria-hidden="true"></i>
+          </div>
+
+          <div class="expandable-content" *ngIf="isExpanded">
+            <!-- Store Groups -->
+            <div class="store-group" *ngFor="let group of groupedItems; let i = index">
+              <div class="store-header">
+                <h3>{{ group.store }}</h3>
+                <span class="store-subtotal">Store Subtotal: {{ formatPrice(group.subtotal) }}</span>
+              </div>
+
+              <!-- Items Grid -->
+              <div class="items-grid">
+                <div
+                  class="cart-item"
+                  *ngFor="let item of group.items; let j = index"
+                  role="listitem">
+                  <div class="item-select">
+                    <input
+                      type="checkbox"
+                      [checked]="selectedItems.has(item.storeProductId)"
+                      (change)="toggleItemSelection(item.storeProductId)"
+                      [attr.aria-label]="'Select ' + item.productName">
+                  </div>
+                  <div class="item-image" role="img" [attr.aria-label]="item.productName + ' product image'">
+                    <button (click)="moveToWishlist([item.storeProductId])">Save for Later</button>
+                  </div>
+                  <div class="item-details">
+                    <h4>{{ item.productName }}</h4>
+                    <p class="item-price">{{ formatPrice(item.productPrice) }} each</p>
+                    <div class="quantity-control" role="group" [attr.aria-label]="'Quantity controls for ' + item.productName">
+                      <button (click)="updateQuantity(item.storeProductId, item.quantity - 1)" [disabled]="item.quantity <= 1">-</button>
+                      <input type="number" [value]="item.quantity" (change)="handleQuantityChange($event, item.storeProductId)" min="1">
+                      <button (click)="updateQuantity(item.storeProductId, item.quantity + 1)">+</button>
+                    </div>
+                    <p class="item-total">Item Total: {{ formatPrice(item.productPrice * item.quantity) }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Order Summary Sidebar -->
+        <aside class="cart-sidebar" #cartSidebar role="complementary" aria-labelledby="order-summary-heading">
+          <div class="checkout-card">
+            <h2 id="order-summary-heading">Order Summary</h2>
+            <div class="summary-details">
+              <div class="summary-row">
+                <span>Items ({{ totalItemCount }})</span>
+                <span>{{ formatPrice(totalAmount) }}</span>
+              </div>
+
+              <section class="tax-section">
+                <div class="summary-row">
+                  <span>Estimated Tax</span>
+                  <span>{{ formatPrice(totalTax) }}</span>
+                </div>
+                <div *ngFor="let tax of taxBreakdown" class="summary-row tax-item">
+                  <span>{{ tax.type }} ({{ (tax.rate * 100).toFixed(1) }}%)</span>
+                  <span>{{ formatPrice(tax.amount) }}</span>
+                </div>
+              </section>
+
+              <div class="summary-row">
+                <span>Shipping</span>
+                <span *ngIf="shippingCost === 0" class="text-success">FREE</span>
+                <span *ngIf="shippingCost > 0">{{ formatPrice(shippingCost) }}</span>
+              </div>
+
+              <div class="summary-total">
+                <span>Order Total</span>
+                <span>{{ formatPrice(totalAmount + totalTax + shippingCost) }}</span>
+              </div>
+            </div>
+
+            <button class="checkout-btn" [disabled]="totalAmount === 0 || this.isLoading" (click)="quickCheckout()">Proceed to Checkout</button>
+          </div>
+
+          <div *ngIf="selectedItems.size > 0" class="bulk-actions">
+            <button (click)="moveSelectedToWishlist()">Move {{ selectedItems.size }} items to Wishlist</button>
+          </div>
+        </aside>
+      </div>
+    </ng-container>
+
+    <!-- Empty Cart State -->
+    <div *ngIf="totalItemCount === 0" class="empty-cart" role="alert">
+      <div class="empty-content">
+        <i class="fas fa-shopping-cart"></i>
+        <h2>Your cart is empty</h2>
+        <p>Find something amazing to fill it up</p>
+        <button routerLink="/products">Start Shopping</button>
+      </div>
+    </div>
+  </div>
+</ng-container>

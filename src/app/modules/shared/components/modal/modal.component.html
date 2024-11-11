@@ -1,0 +1,6 @@
+<!-- modal.component.html -->
+<div class="modal-overlay" *ngIf="visible" (click)="onClose()"></div>
+<div class="modal-content" *ngIf="visible">
+  <button class="modal-close-button" (click)="onClose()">✖️</button>
+  <ng-content></ng-content> <!-- Project any content here -->
+</div>

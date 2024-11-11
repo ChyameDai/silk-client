@@ -1,0 +1,70 @@
+@import 'variables';
+
+button {
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  font-size: $font-size-button;
+  border-radius: $border-radius-small;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  transition: background-color $transition-duration $transition-ease, color $transition-duration $transition-ease;
+  color: $color-text-primary;
+
+  &.primary {
+    background-color: $color-accent;
+
+    &:hover {
+      background-color: darken($color-accent, 10%);
+    }
+
+    &:focus {
+      background-color: darken($color-accent, 5%);
+      outline: 2px solid lighten($color-accent, 15%);
+    }
+
+    &:disabled {
+      background-color: lighten($color-accent, 20%);
+      color: lighten($color-text-primary, 30%);
+      cursor: not-allowed;
+    }
+  }
+
+  &.secondary {
+    background-color: $color-secondary;
+
+    &:hover {
+      background-color: darken($color-secondary, 10%);
+    }
+
+    &:focus {
+      background-color: darken($color-secondary, 5%);
+      outline: 2px solid lighten($color-secondary, 15%);
+    }
+
+    &:disabled {
+      background-color: lighten($color-secondary, 20%);
+      color: lighten($color-text-primary, 30%);
+      cursor: not-allowed;
+    }
+  }
+
+  &.danger {
+    background-color: $color-danger;
+
+    &:hover {
+      background-color: darken($color-danger, 10%);
+    }
+
+    &:focus {
+      background-color: darken($color-danger, 5%);
+      outline: 2px solid lighten($color-danger, 15%);
+    }
+
+    &:disabled {
+      background-color: lighten($color-danger, 20%);
+      color: lighten($color-text-primary, 30%);
+      cursor: not-allowed;
+    }
+  }
+}

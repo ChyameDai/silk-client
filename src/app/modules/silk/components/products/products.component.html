@@ -1,0 +1,37 @@
+<!-- products.component.html -->
+<section class="products-container">
+  <!-- Error State -->
+  <div *ngIf="error" class="products-error">
+    <i class="fas fa-exclamation-circle"></i>
+    <p>{{ error }}</p>
+    <button class="retry-button" (click)="fetchProducts()">
+      <i class="fas fa-sync"></i> Retry
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading && !error" class="products-loading">
+    <div class="loading-spinner"></div>
+    <p>Loading products...</p>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && !error && products.length === 0" class="products-empty">
+    <i class="fas fa-box-open"></i>
+    <p>No products available</p>
+  </div>
+
+  <!-- Products Grid -->
+  <div *ngIf="!loading && !error && products.length > 0" class="products-grid">
+    <app-product-card
+      *ngFor="let product of products; trackBy: trackByProductId"
+      [imageUrl]="product.productImage"
+      [name]="product.productName"
+      [price]="convertStringPriceToNumber(product.productPrice)"
+      [description]="product.productDescription"
+      [buttonText]="'Add to Cart'"
+      [buttonText2]="'View Details'"
+      (actionClick)="onProductAction(product, $event)"
+    ></app-product-card>
+  </div>
+</section>

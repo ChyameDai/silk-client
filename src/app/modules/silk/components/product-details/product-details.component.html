@@ -1,0 +1,155 @@
+<!-- product-details.component.html -->
+<section class="product-details-container">
+  <!-- Back Button -->
+  <button class="back-button" (click)="goBack()">
+    <i class="fas fa-arrow-left"></i>
+    Back to Products
+  </button>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-state">
+    <i class="fas fa-exclamation-circle"></i>
+    <p>{{ error }}</p>
+    <button class="retry-button" (click)="product && loadProductDetails(product.productId)">
+      <i class="fas fa-sync"></i> Retry
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="loading-spinner"></div>
+    <p>Loading product details...</p>
+  </div>
+
+  <!-- Product Details -->
+  <div *ngIf="!loading && !error && product" class="product-content">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <span>{{ product.categoryName }}</span>
+      <i class="fas fa-chevron-right"></i>
+      <span>{{ product.productName }}</span>
+    </div>
+
+    <div class="product-grid">
+      <!-- Product Image & Gallery -->
+      <div class="product-image-section">
+        <img [src]="'path-to-image'" [alt]="product.productName" class="main-image" />
+        <!-- Add image gallery here if available -->
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-info-section">
+        <h1 class="product-title">{{ product.productName }}</h1>
+
+        <div class="store-info">
+          <i class="fas fa-store"></i>
+          <span>Sold by {{ product.storeName }}</span>
+        </div>
+
+        <div class="price-section">
+          <span class="price">${{ product.price }}</span>
+          <!-- Add original price if on sale -->
+        </div>
+
+        <!-- Stock Status -->
+        <div class="stock-status" [class.low-stock]="product.quantityAvailable < 10">
+          <i class="fas" [class.fa-check-circle]="product.quantityAvailable > 0"
+             [class.fa-exclamation-circle]="product.quantityAvailable < 10"></i>
+          <span *ngIf="product.quantityAvailable > 10">In Stock</span>
+          <span *ngIf="product.quantityAvailable <= 10 && product.quantityAvailable > 0">
+            Only {{ product.quantityAvailable }} left in stock
+          </span>
+          <span *ngIf="product.quantityAvailable === 0">Out of Stock</span>
+        </div>
+
+        <!-- Add to Cart Section -->
+        <div class="cart-section">
+          <div *ngIf="!isInCart" class="quantity-selector">
+            <button (click)="decreaseQuantity()" [disabled]="quantity === 1">
+              <i class="fas fa-minus"></i>
+            </button>
+            <span>{{ quantity }}</span>
+            <button (click)="increaseQuantity()" [disabled]="quantity >= product.quantityAvailable">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+
+          <button *ngIf="!isInCart"
+                  class="add-to-cart-button"
+                  (click)="addToCart()"
+                  [disabled]="product.quantityAvailable === 0">
+            <i class="fas fa-shopping-cart"></i>
+            Add to Cart
+          </button>
+
+          <!-- In Cart Controls -->
+          <div *ngIf="isInCart" class="in-cart-controls">
+            <div class="quantity-controls">
+              <button (click)="updateCartQuantity(-1)">
+                <i class="fas fa-minus"></i>
+              </button>
+              <span>{{ cartQuantity }} in cart</span>
+              <button (click)="updateCartQuantity(1)"
+                      [disabled]="cartQuantity >= product.quantityAvailable">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+            <button class="remove-button" (click)="removeFromCart(product.storeProductId)">
+              <i class="fas fa-trash"></i>
+              Remove
+            </button>
+          </div>
+        </div>
+
+        <!-- Stock Notification -->
+        <div *ngIf="product.quantityAvailable === 0" class="stock-notification">
+          <button *ngIf="!showStockNotification"
+                  (click)="showStockNotification = true"
+                  class="notification-button">
+            <i class="fas fa-bell"></i>
+            Notify When Available
+          </button>
+
+          <div *ngIf="showStockNotification" class="notification-form">
+            <input type="email"
+                   [(ngModel)]="stockNotificationEmail"
+                   placeholder="Enter your email"
+                   class="email-input" />
+            <button (click)="subscribeToStockNotification()"
+                    [disabled]="!stockNotificationEmail">
+              Subscribe
+            </button>
+          </div>
+        </div>
+
+        <!-- Additional Features -->
+        <div class="additional-features">
+          <div class="feature">
+            <i class="fas fa-truck"></i>
+            <span>Free Shipping on orders over $35</span>
+          </div>
+          <div class="feature">
+            <i class="fas fa-undo"></i>
+            <span>30-Day Return Policy</span>
+          </div>
+          <div class="feature">
+            <i class="fas fa-shield-alt"></i>
+            <span>Secure Payment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recently Viewed -->
+    <div *ngIf="recentlyViewed.length > 0" class="recently-viewed">
+      <h2>Recently Viewed</h2>
+      <div class="recently-viewed-grid">
+        <div *ngFor="let item of recentlyViewed" class="recent-item">
+          <img [src]="'path-to-image'" [alt]="item.productName" />
+          <h3>{{ item.productName }}</h3>
+          <p>${{ item.price }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

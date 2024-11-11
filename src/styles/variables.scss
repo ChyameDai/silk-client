@@ -1,0 +1,49 @@
+// Color Palette - Dark Theme
+$color-background-dark: #0a0a0a;         // Darker background
+$color-card-dark: #151515;               // Darker card background
+$color-background-hover: #202020;        // Slightly lighter for hover states
+$color-input-background: #252525;        // Dark but distinguishable input fields
+$color-input-focus: #323232;             // Lighter shade for focus states
+
+// Text Colors
+$color-text-primary: #ffffff;            // Pure white for primary text
+$color-text-secondary: #a0a0a0;          // Muted grey for secondary text
+$color-text-tertiary: #707070;           // More muted for less important text
+
+$color-card-dark: #151515;               // Darker card background
+// Accent Colors
+$color-accent: #ff6f61;                  // Vibrant coral accent
+$color-accent-hover: #ff8577;            // Lighter coral for hover
+$color-secondary: #614FFF;               // Deep purple secondary
+$color-danger: #ff4545;                  // Brighter red for better visibility
+
+// Shadows
+$color-shadow: rgba(0, 0, 0, 0.7);       // Darker shadow for more depth
+$color-shadow-accent: rgba(255, 111, 97, 0.3);  // Subtle accent shadow
+$shadow-card: 0 8px 24px rgba(0, 0, 0, 0.8);   // More pronounced card shadow
+$shadow-button: 0 4px 12px rgba(0, 0, 0, 0.6); // Deeper button shadow
+
+// Border Radius
+$border-radius-small: 6px;
+$border-radius-medium: 12px;
+$border-radius-large: 16px;
+
+// Typography
+$font-size-title: 2rem;
+$font-size-subtitle: 0.9rem;
+$font-size-label: 0.85rem;
+$font-size-button: 1rem;
+$font-size-small: 0.75rem;
+
+// Transitions
+$transition-duration: 0.3s;
+$transition-ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+// Gradients
+$gradient-dark: linear-gradient(180deg, $color-card-dark 0%, $color-background-dark 100%);
+$gradient-accent: linear-gradient(45deg, $color-accent 0%, $color-secondary 100%);
+
+// Z-index Layers
+$z-index-dropdown: 1000;
+$z-index-modal: 2000;
+$z-index-tooltip: 3000;
