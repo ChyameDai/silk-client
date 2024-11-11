@@ -5,6 +5,7 @@ import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CartService } from '../../../../services/cart.service';
 import { AuthService } from '../../../../services/auth-service.service';
+import { NotificationService } from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-products',
@@ -16,7 +17,10 @@ export class ProductsComponent implements OnInit {
   loading: boolean = true;
   error: string | null = null;
 
-  constructor(private productService: ProductService, private router: Router, private cartService:CartService, private authService:AuthService) {}
+  constructor(private productService: ProductService, private router: Router,
+     private cartService:CartService,
+     private notificationService : NotificationService,
+     private authService:AuthService) {}
 
   ngOnInit(): void {
     this.fetchProducts();
@@ -33,6 +37,7 @@ export class ProductsComponent implements OnInit {
     ).subscribe(
       (response: any) => {
         if (response && response.products) {
+          this.notificationService.showNotification('success', 'Product Loaded');
           this.products = response.products;
         } else {
           this.error = 'Invalid response format';
@@ -70,7 +75,9 @@ export class ProductsComponent implements OnInit {
 
         this.cartService.addToCart(newItem).subscribe(
           (response: any) => {
+
             console.log('Product added to cart:', response);
+            this.notificationService.showNotification('success', 'Product added to cart');
 
           }
         );

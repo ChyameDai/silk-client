@@ -6,9 +6,10 @@ import { ProductsComponent } from './components/products/products.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SilkHomeComponent } from './components/silk-home/silk-home.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 const routes: Routes = [
-  {
+{
     path: '',
     component: SilkHomeComponent,
     children: [
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'profile', component: ProfileComponent },
       {path:'home', component: SilkHomeComponent},
       {path:"store-product/:id", component: ProductDetailsComponent},
+      {path:"checkout", component: CheckoutComponent},
       { path: '', redirectTo: 'home', pathMatch: 'full' } // Default route
     ]
   },

@@ -5,6 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { CartService } from '../../../../services/cart.service';
 import { AuthService } from '../../../../services/auth-service.service';
 import { CartResponse, CartItem, AddItemsToCartRequest } from '../../../../models/app.models';
+import { NotificationService } from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-cart',
@@ -35,7 +36,8 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(
     private cartService: CartService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +48,7 @@ export class CartComponent implements OnInit, OnDestroy {
     const subscription = this.cartService.loadCart().pipe(
       tap((cartResponses: CartResponse[]) => {
         this.isLoading = false;
+        this.notificationService.showNotification('success', 'Cart Loaded');
         this.cart = cartResponses[0];
         if (this.cart) {
           this.quickCheckoutAvailable = this.cart.items.products.length > 0;
@@ -58,6 +61,7 @@ export class CartComponent implements OnInit, OnDestroy {
       catchError(error => {
         this.isLoading = false;
         console.error('Error loading cart:', error);
+        this.notificationService.showNotification('failure', 'Error loading  cart');
         return of(null);
       })
     ).subscribe();
@@ -127,12 +131,13 @@ export class CartComponent implements OnInit, OnDestroy {
     const subscription = this.cartService.updateQuantity(updateRequest).pipe(
       tap(() => this.loadCart()), // Refresh cart after update
       catchError(error => {
+
         console.error('Error updating quantity:', error);
         this.isLoading = false;
         return of(null);
       })
     ).subscribe();
-
+           this.notificationService.showNotification('sucess', 'Cart Loaded');
     this.subscriptions.add(subscription);
   }
 
@@ -164,7 +169,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   quickCheckout(): void {
-    this.router.navigate(['/checkout'], { queryParams: { mode: 'quick' } })
+    this.router.navigate(['/silk/checkout'], { queryParams: { mode: 'quick' } })
       .catch(error => console.error('Navigation error:', error));
   }
 

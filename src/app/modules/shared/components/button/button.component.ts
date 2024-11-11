@@ -9,7 +9,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 export class ButtonComponent implements OnChanges {
   @Input() type: 'primary' | 'secondary' | 'danger' = 'primary'; // Button type input
   @Input() text: string = 'Click me'; // Button text input
-  @Input() disabled: boolean = false; // Button disabled state
+  @Input() disabled: boolean = false; // Button disabled sthate
 
   ngOnChanges(changes:SimpleChanges):void {
   //update all the inputs

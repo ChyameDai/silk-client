@@ -8,7 +8,12 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SilkRoutingModule } from './silk.routing.module';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { SharedModule } from '../shared/shared.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PaymentComponent } from './components/payment/payment.component';
+import { ShippingComponent } from './components/shipping/shipping.component';
+import { ShippingService } from '../../services/shipping.service';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { CartService } from '../../services/cart.service';
 
 
 
@@ -19,13 +24,19 @@ import { FormsModule } from '@angular/forms';
     CartComponent,
     OrdersComponent,
     ProfileComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    PaymentComponent,
+    ShippingComponent,
+    CheckoutComponent
+
   ],
   imports: [
     SilkRoutingModule,
     CommonModule,
     SharedModule,
     FormsModule,
-  ]
+    ReactiveFormsModule
+  ],
+  providers: [ShippingService,CartService],
 })
 export class SilkModule { }

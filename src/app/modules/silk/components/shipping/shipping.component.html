@@ -1,0 +1,46 @@
+<!-- shipping.component.html -->
+<section class="shipping-container">
+  <h2>Shipping Address</h2>
+
+  <!-- Default/Selected Address Display -->
+  <div *ngIf="selectedAddress" class="selected-address">
+    <h3>Selected Shipping Address</h3>
+    <p>{{ selectedAddress.addressLine1 }}</p>
+    <p *ngIf="selectedAddress.addressLine2">{{ selectedAddress.addressLine2 }}</p>
+    <p>{{ selectedAddress.city }}, {{ selectedAddress.state }} {{ selectedAddress.postalCode }}</p>
+    <p>{{ selectedAddress.country }}</p>
+    <button (click)="selectAddress(selectedAddress)">Use This Address</button>
+  </div>
+
+  <!-- List of all addresses -->
+  <div class="address-list">
+    <h3>Choose Another Address</h3>
+    <ul>
+      <li *ngFor="let address of addresses">
+        <p>{{ address.addressLine1 }}</p>
+        <p *ngIf="address.addressLine2">{{ address.addressLine2 }}</p>
+        <p>{{ address.city }}, {{ address.state }} {{ address.postalCode }}</p>
+        <p>{{ address.country }}</p>
+        <button (click)="selectAddress(address)" [class.selected]="address === selectedAddress">
+          {{ address === selectedAddress ? 'Selected' : 'Select' }}
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Add New Address Form -->
+  <div class="add-address-form">
+    <h3>Add New Address</h3>
+    <form (ngSubmit)="addAddress()">
+      <input type="text" [(ngModel)]="newAddress.addressLine1" name="addressLine1" placeholder="Address Line 1" required />
+      <input type="text" [(ngModel)]="newAddress.addressLine2" name="addressLine2" placeholder="Address Line 2" />
+      <input type="text" [(ngModel)]="newAddress.city" name="city" placeholder="City" required />
+      <input type="text" [(ngModel)]="newAddress.state" name="state" placeholder="State" required />
+      <input type="text" [(ngModel)]="newAddress.postalCode" name="postalCode" placeholder="Postal Code" required />
+      <input type="text" [(ngModel)]="newAddress.country" name="country" placeholder="Country" required />
+      <button type="submit" [disabled]="!newAddress.addressLine1 || !newAddress.city || !newAddress.state || !newAddress.postalCode || !newAddress.country">
+        Add Address
+      </button>
+    </form>
+  </div>
+</section>

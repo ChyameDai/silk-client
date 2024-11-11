@@ -7,6 +7,7 @@ import { Observable, of, Subscription } from 'rxjs';
 import { CartService } from '../../../../services/cart.service';
 import { AddItemsToCartRequest, CartItem, StoreProduct } from '../../../../models/app.models';
 import { AuthService } from '../../../../services/auth-service.service';
+import { NotificationService } from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-product-details',
@@ -32,11 +33,13 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     private productService: ProductService,
     private cartService: CartService,
     private location: Location,
-    private auth: AuthService
+    private auth: AuthService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
     const productId = this.route.snapshot.params['id'];
+
     this.loadProductDetails(productId);
     this.loadRecentlyViewed();
     this.checkCartStatus(productId);
@@ -49,8 +52,8 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   private checkCartStatus(productId: number): void {
     const subscription = this.cartService.loadCart().pipe(
       tap(cart => {
-        const cartItem = cart[0].items.products.find(item => item.storeProductId === productId);
-        this.isInCart = !!cartItem;
+        const cartItem: CartItem | undefined = cart[0].items.products.find(item => item.storeProductId === productId);
+        this.isInCart = cartItem ? cartItem.storeProductId === this.product.storeProductId : false;
         this.cartQuantity = cart[0].totalCartAmount
       }),
       catchError(error => {
@@ -70,6 +73,8 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       tap((response: any) => {
         if (response?.storeProducts?.length > 0) {
           this.product = response.storeProducts[0];
+          this.notificationService.showNotification('success', 'Product loaded successfully');
+
           this.addToRecentlyViewed(this.product);
           this.checkCartStatus(id); // Refresh cart status when product loads
         } else {
@@ -77,6 +82,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         }
       }),
       catchError(error => {
+        this.notificationService.showNotification('error', 'Error loading product');
         this.error = this.getErrorMessage(error);
         console.error('Error loading product:', error);
         return of(null);
@@ -117,8 +123,10 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         this.isInCart = true;
         this.cartQuantity = this.quantity;
         this.quantity = 1; // Reset quantity after adding
+        this.notificationService.showNotification('success', 'Product added to cart');
       }),
       catchError(error => {
+        this.notificationService.showNotification('error', 'Error adding to cart');
         console.error('Error adding to cart:', error);
         return of(null);
       })

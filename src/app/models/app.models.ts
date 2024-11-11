@@ -98,3 +98,32 @@ export interface CartOperationResponse {
   message: string;
   cart?: CartResponse;
 }
+export interface Notification {
+  type: string
+  message: string;
+}
+export interface ShippingAddress {
+  addressLine1: string;
+  addressLine2?: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+  isDefault: boolean;
+}
+// app/models/app.models.ts
+
+export interface CreateShippingAddressRequest {
+  addressLine1: string;       // First line of the address
+  addressLine2?: string;      // Optional second line of the address
+  city: string;               // City for the address
+  state: string;              // State or province
+  postalCode: string;         // Postal or ZIP code
+  country: string;            // Country name
+  isDefault?: boolean;        // Flag to mark as default address, optional
+}
+export interface PaymentDetails {
+  methodId: number; // ID for the payment method
+  amount: number;
+  // other properties of PaymentDetails
+}

@@ -1,0 +1,89 @@
+// shipping.component.scss
+@import 'variables';
+
+.shipping-container {
+  padding: 20px;
+  background-color: $color-background-dark;
+  color: $color-text-primary;
+
+  h2, h3 {
+    font-size: $font-size-title;
+    color: $color-text-primary;
+    margin-bottom: 1rem;
+  }
+
+  .selected-address, .address-list, .add-address-form {
+    background: $color-card-dark;
+    padding: 1.5rem;
+    border-radius: $border-radius-medium;
+    box-shadow: $shadow-card;
+    margin-bottom: 1.5rem;
+
+    h3 {
+      font-size: $font-size-subtitle;
+      color: $color-text-secondary;
+    }
+
+    p {
+      margin: 0.2rem 0;
+      color: $color-text-primary;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: $color-accent;
+      color: $color-text-primary;
+      border: none;
+      border-radius: $border-radius-small;
+      cursor: pointer;
+      transition: background $transition-duration $transition-ease;
+
+      &:hover {
+        background: $color-accent-hover;
+      }
+
+      &.selected {
+        background: lighten($color-accent, 10%);
+        cursor: default;
+      }
+    }
+  }
+
+  .add-address-form {
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      background: $color-input-background;
+      border: 1px solid $color-background-hover;
+      border-radius: $border-radius-small;
+      color: $color-text-primary;
+
+      &:focus {
+        border-color: $color-accent;
+        outline: none;
+      }
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 0.75rem;
+      background: $color-secondary;
+      color: $color-text-primary;
+      border: none;
+      border-radius: $border-radius-medium;
+      cursor: pointer;
+      transition: background $transition-duration $transition-ease;
+
+      &:hover {
+        background: lighten($color-secondary, 10%);
+      }
+
+      &:disabled {
+        background: $color-text-tertiary;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

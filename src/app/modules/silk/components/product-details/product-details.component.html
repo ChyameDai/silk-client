@@ -64,41 +64,26 @@
 
         <!-- Add to Cart Section -->
         <div class="cart-section">
-          <div *ngIf="!isInCart" class="quantity-selector">
+          <div class="quantity-selector">
             <button (click)="decreaseQuantity()" [disabled]="quantity === 1">
-              <i class="fas fa-minus"></i>
+              <i class="fas fa-minus">-</i>
             </button>
             <span>{{ quantity }}</span>
             <button (click)="increaseQuantity()" [disabled]="quantity >= product.quantityAvailable">
-              <i class="fas fa-plus"></i>
+              <i class="fas fa-plus">+</i>
             </button>
           </div>
 
-          <button *ngIf="!isInCart"
+          <button
                   class="add-to-cart-button"
                   (click)="addToCart()"
                   [disabled]="product.quantityAvailable === 0">
             <i class="fas fa-shopping-cart"></i>
-            Add to Cart
+            <span *ngIf="!isInCart">Add to Cart</span>
+
           </button>
 
-          <!-- In Cart Controls -->
-          <div *ngIf="isInCart" class="in-cart-controls">
-            <div class="quantity-controls">
-              <button (click)="updateCartQuantity(-1)">
-                <i class="fas fa-minus"></i>
-              </button>
-              <span>{{ cartQuantity }} in cart</span>
-              <button (click)="updateCartQuantity(1)"
-                      [disabled]="cartQuantity >= product.quantityAvailable">
-                <i class="fas fa-plus"></i>
-              </button>
-            </div>
-            <button class="remove-button" (click)="removeFromCart(product.storeProductId)">
-              <i class="fas fa-trash"></i>
-              Remove
-            </button>
-          </div>
+
         </div>
 
         <!-- Stock Notification -->

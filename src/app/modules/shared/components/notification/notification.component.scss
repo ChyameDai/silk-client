@@ -1,54 +1,84 @@
-// notification.component.scss
 @import 'variables';
 
 .notification {
   display: flex;
   align-items: center;
-  padding: 1rem;
-  border-radius: $border-radius-small;
-  box-shadow: 0 4px 10px $color-shadow;
-  font-weight: bold;
+  padding: 1rem 1.5rem;
+  border-radius: $border-radius-medium;
+  box-shadow: 0 8px 20px $color-shadow;
+  font-weight: 600;
   color: $color-text-primary;
-  transition: opacity $transition-duration $transition-ease;
-  position: relative;
+  transition: opacity $transition-duration $transition-ease, transform $transition-duration $transition-ease;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  max-width: 300px;
+  z-index: $z-index-tooltip;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeInOut 5s forwards;
 
   &.success {
-    background-color: #28a745;
-    color: #ffffff;
+    background: linear-gradient(135deg, #1e7e34, #28a745);
+    border-left: 4px solid #28a745;
   }
 
   &.warning {
-    background-color: #ffc107;
-    color: #000000;
+    background: linear-gradient(135deg, #d39e00, #ffc107);
+    border-left: 4px solid #ffc107;
   }
 
   &.failure {
-    background-color: #dc3545;
-    color: #ffffff;
+    background: linear-gradient(135deg, #bd2130, #dc3545);
+    border-left: 4px solid #dc3545;
   }
 }
 
 .notification-icon {
-  margin-right: 0.5rem;
-  font-size: 1.5rem;
+  margin-right: 0.8rem;
+  font-size: 1.8rem;
+  color: $color-text-primary;
 }
 
 .notification-message {
   flex-grow: 1;
+  color: $color-text-primary;
+  font-size: $font-size-subtitle;
 }
 
 .close-button {
   background: none;
   border: none;
-  color: inherit;
+  color: $color-text-secondary;
   font-size: 1.2rem;
   cursor: pointer;
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  transition: color $transition-duration $transition-ease;
+  top: 8px;
+  right: 8px;
+  transition: color $transition-duration $transition-ease, transform $transition-duration $transition-ease;
 
   &:hover {
-    color: $color-text-secondary;
+    color: $color-text-primary;
+    transform: scale(1.2);
+  }
+}
+
+// Animation to fade in and slide up
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
   }
 }

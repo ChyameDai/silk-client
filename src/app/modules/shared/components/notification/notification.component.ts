@@ -1,19 +1,41 @@
 // src/app/modules/shared/components/notification/notification.component.ts
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+;
+import { Subscription } from 'rxjs';
+import { NotificationService } from '../../../../services/notification.service';
+import { Notification } from '../../../../models/app.models';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss']
 })
-export class NotificationComponent {
-  @Input() visible: boolean = false; // Controls visibility of the notification
-  @Input() type: 'success' | 'warning' | 'failure' = 'success'; // Notification type
-  @Input() message: string = ''; // Message to display in the notification
+export class NotificationComponent implements OnInit {
+  visible = false;
+  type: 'success' | 'warning' | 'failure'| string = 'success';
+  message = '';
+  private subscription: Subscription = new Subscription();
 
-  @Output() close = new EventEmitter<void>(); // Close event to notify parent
+  constructor(private notificationService: NotificationService) {}
 
-  onClose() {
-    this.close.emit(); // Emit the close event when close button is clicked
+  ngOnInit(): void {
+    this.subscription = this.notificationService.notification$.subscribe((notification: Notification) => {
+      this.type = notification.type;
+      this.message = notification.message;
+      this.visible = true;
+
+      // Hide the notification automatically after a few seconds
+      setTimeout(() => {
+        this.visible = false;
+      }, 3000);
+    });
+  }
+
+  onClose(): void {
+    this.visible = false;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

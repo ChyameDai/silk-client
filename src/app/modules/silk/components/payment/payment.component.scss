@@ -1,0 +1,115 @@
+// payment.component.scss
+@import 'variables';
+
+.payment-container {
+  padding: 20px;
+  background-color: $color-background-dark;
+  color: $color-text-primary;
+
+  h2 {
+    font-size: $font-size-title;
+    margin-bottom: 1.5rem;
+    color: $color-text-primary;
+  }
+
+  .payment-amount {
+    font-size: $font-size-subtitle;
+    color: $color-accent;
+    margin-bottom: 1.5rem;
+  }
+
+  .payment-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    button {
+      padding: 0.75rem 1.5rem;
+      background: $color-card-dark;
+      color: $color-text-primary;
+      border: 1px solid $color-background-hover;
+      border-radius: $border-radius-small;
+      cursor: pointer;
+      transition: background $transition-duration $transition-ease;
+
+      &.selected {
+        background: $color-accent;
+        color: $color-text-primary;
+      }
+
+      &:disabled {
+        background: $color-background-hover;
+        cursor: not-allowed;
+        color: $color-text-tertiary;
+
+        .coming-soon {
+          font-size: $font-size-small;
+          color: $color-text-tertiary;
+        }
+      }
+
+      &:hover:not(:disabled) {
+        background: $color-background-hover;
+      }
+    }
+  }
+
+  .payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        margin-bottom: 0.5rem;
+        color: $color-text-secondary;
+        font-size: $font-size-small;
+      }
+
+      input {
+        padding: 0.75rem;
+        border-radius: $border-radius-small;
+        border: 1px solid $color-background-hover;
+        background: $color-input-background;
+        color: $color-text-primary;
+
+        &:focus {
+          outline: none;
+          border-color: $color-accent;
+        }
+      }
+    }
+
+    .form-row {
+      display: flex;
+      gap: 1rem;
+
+      .form-group {
+        flex: 1;
+      }
+    }
+
+    button[type="submit"] {
+      padding: 1rem;
+      background: $color-accent;
+      color: $color-text-primary;
+      border: none;
+      border-radius: $border-radius-medium;
+      cursor: pointer;
+      transition: background $transition-duration $transition-ease;
+
+      &:disabled {
+        background: $color-text-tertiary;
+        cursor: not-allowed;
+      }
+
+      &:hover:not(:disabled) {
+        background: $color-accent-hover;
+      }
+    }
+  }
+}
