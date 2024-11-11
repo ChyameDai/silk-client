@@ -1,3 +1,44 @@
-<p>
-  register works!
-</p>
+<section class="register-container">
+  <div class="logo-container" *ngIf="isMobile">
+    <img src="assets/subject.png" alt="Silk Logo" class="logo-image" />
+  </div>
+
+  <h2>Register</h2>
+
+  <!-- Email/Password Registration Form -->
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" required />
+      <div *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched" class="error">
+        Valid email is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" required />
+      <div *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched" class="error">
+        Password must be at least 6 characters
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+  </form>
+
+  <!-- Social Login Options -->
+  <div class="social-logins">
+    <button (click)="loginWithGoogle()" class="google-btn">
+      <fa-icon [icon]="faGoogle"></fa-icon> Continue with Google
+    </button>
+    <button (click)="loginWithWhatsApp()" class="whatsapp-btn">
+      <fa-icon [icon]="faWhatsapp"></fa-icon> Continue with WhatsApp
+    </button>
+    <button (click)="loginWithApple()" class="apple-btn">
+      <fa-icon [icon]="faApple"></fa-icon> Continue with Apple
+    </button>
+    <button (click)="loginWithOther()" class="facebook-btn">
+      <fa-icon [icon]="faFacebook"></fa-icon> Continue with Facebook
+    </button>
+  </div>
+</section>

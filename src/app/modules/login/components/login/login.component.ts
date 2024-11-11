@@ -13,10 +13,14 @@ export class LoginComponent implements OnInit {
   emailInvalid = false;
   passwordInvalid = false;
   loading = false; // New loading flag
-
+  isMobile = false;
   constructor(private authService: AuthService,private router:Router) {}
 
   ngOnInit(): void {
+    //detect if the user is using a mobile device
+    if(window.innerWidth <= 768){
+      this.isMobile = true
+    }
     // Check if user is already logged in
     if (this.authService.isLoggedIn()) {
       // Redirect to home page or dashboard

@@ -1,6 +1,8 @@
-<div class="login-container">
-  <h2 class="login-title">Login</h2>
 
+<div class="login-container">
+
+  <h2 class="login-title">Login</h2>
+  <img *ngIf="isMobile" src="assets/subject.png" alt="Silk Logo" class="logo-image" />
   <!-- Email Input Field -->
   <div class="input-group">
     <app-text-input-box

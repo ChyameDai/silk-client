@@ -4,9 +4,9 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ForgorPasswordComponent } from './components/forgor-password/forgor-password.component';
 import { SharedModule } from '../shared/shared.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginRoutingModule } from './login.routing.module';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -15,7 +15,10 @@ import { LoginRoutingModule } from './login.routing.module';
     CommonModule,
     SharedModule,
     FormsModule,
-    LoginRoutingModule
+    LoginRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    FontAwesomeModule
   ]
 })
 export class LoginModule { }

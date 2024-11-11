@@ -37,7 +37,7 @@ navItems!: NavigationItem[];
       else{
         this.navItems = [
           { label: 'Login', link: '/login' },
-          { label: 'Register', link: '/register' },
+          { label: 'Register', link: '/login/register' },
         ];
         this.router.navigate(['/login']);
       }

@@ -7,7 +7,7 @@
   padding: 1rem 1.5rem;
   background-color: $color-background-dark;
   box-shadow: 0 4px 10px $color-shadow;
-  width: 100%;
+  width: 97%;
 
   .navbar-brand {
     display: flex;
@@ -81,4 +81,21 @@
       }
     }
   }
+}
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 100px; // Adjust as needed
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%; // Makes the container circular
+}
+
+.logo-container img {
+  width: 100%; // "Zoom" effect by increasing the size beyond the container
+  height: auto;
+  object-fit: cover; // Ensures the image covers the circular container
+  object-position: center; // Keeps the image centered within the container
 }

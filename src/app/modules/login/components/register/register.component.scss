@@ -1,0 +1,145 @@
+// register.component.scss
+
+$primary-color: #1a1a1a; // Dark background color
+$accent-color: #3a3a3a; // Subtle accent color for buttons
+$text-color: #e0e0e0; // Light text color
+$error-color: #e74c3c; // Red for error messages
+$input-bg-color: #333333; // Darker input fields
+$input-border-color: #555555;
+$button-hover-color: lighten($accent-color, 5%);
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background-color: $primary-color;
+  color: $text-color;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: auto;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+
+  h2 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: lighten($accent-color, 20%);
+  }
+
+  .register-form {
+    width: 100%;
+
+    .form-group {
+      margin-bottom: 1rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: lighten($text-color, 15%);
+      }
+
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        background-color: $input-bg-color;
+        color: $text-color;
+        border: 1px solid $input-border-color;
+        border-radius: 4px;
+        font-size: 1rem;
+
+        &::placeholder {
+          color: lighten($text-color, 30%);
+        }
+      }
+
+      .error {
+        margin-top: 0.5rem;
+        color: $error-color;
+        font-size: 0.875rem;
+      }
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: $accent-color;
+      color: lighten($text-color, 10%);
+      border: none;
+      border-radius: 4px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $button-hover-color;
+      }
+
+      &:disabled {
+        background-color: darken($accent-color, 10%);
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .social-logins {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    width: 100%;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem;
+      border: 1px solid darken($accent-color, 15%);
+      border-radius: 4px;
+      color: lighten($text-color, 10%);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+      background-color: transparent;
+
+      svg.icon {
+        margin-right: 0.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        fill: lighten($text-color, 10%);
+      }
+
+      &:hover {
+        background-color: $accent-color;
+        border-color: $button-hover-color;
+      }
+
+      &.google-btn { color: #db4437; }
+      &.whatsapp-btn { color: #25d366; }
+      &.apple-btn { color: #a1a1a1; }
+      &.facebook-btn { color: #1877f2; }
+
+      // Adjust hover for subtle effect
+      &.google-btn:hover { background-color: rgba(219, 68, 55, 0.1); }
+      &.whatsapp-btn:hover { background-color: rgba(37, 211, 102, 0.1); }
+      &.apple-btn:hover { background-color: rgba(161, 161, 161, 0.1); }
+      &.facebook-btn:hover { background-color: rgba(24, 119, 242, 0.1); }
+    }
+  }
+}
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 100px; // Adjust as needed
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%; // Makes the container circular
+}
+
+.logo-container img {
+  width: 100%; // "Zoom" effect by increasing the size beyond the container
+  height: auto;
+  object-fit: cover; // Ensures the image covers the circular container
+  object-position: center; // Keeps the image centered within the container
+}
