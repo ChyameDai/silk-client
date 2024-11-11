@@ -45,6 +45,9 @@ export const environment = {
     details: '/api/orders/:id', // ":id" will be dynamically replaced with the order ID
     cancel: '/api/orders/:id/cancel', // ":id" will be dynamically replaced with the order ID
     history: '/api/orders/history',
+    allShippingAddresses: '/api/v1/user/get-all-shipping-addresses/',
+    defaultShippingAddress: '/api/v1/user/add-shipping-address/',
+    addShippingAddress: '/api/orders/add-shipping-address',
   },
 
   // Payment related endpoints
