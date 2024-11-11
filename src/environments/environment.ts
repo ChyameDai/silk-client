@@ -32,7 +32,7 @@ export const environment = {
   // Cart related endpoints
   cart: {
     get: '/api/v1/user/get-all-my-cart/',
-    add: '/api/v1/user/add/products-to-cart',
+    add: '/api/v1/user/add/products-to-cart/v2',
     update: '/api/v1/user/update/cart-item/v2',
     remove: '/api/cart/remove',
     clear: '/api/cart/clear',

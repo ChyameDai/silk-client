@@ -23,7 +23,7 @@ export const environment = {
   // Product related endpoints
   products: {
     list: '/api/v1/user/products/Test Store 3',
-    details: '/api/products/:id', // ":id" will be dynamically replaced with the product ID
+    details: '/api/v1/user/store-products/details/', // ":id" will be dynamically replaced with the product ID
     search: '/api/products/search',
     categories: '/api/products/categories',
     featured: '/api/products/featured',
@@ -31,9 +31,9 @@ export const environment = {
 
   // Cart related endpoints
   cart: {
-    get: '/api/cart',
-    add: '/api/cart/add',
-    update: '/api/cart/update',
+    get: '/api/v1/user/get-all-my-cart/',
+    add: '/api/v1/user/add/products-to-cart/v2',
+    update: '/api/v1/user/update/cart-item/v2',
     remove: '/api/cart/remove',
     clear: '/api/cart/clear',
   },

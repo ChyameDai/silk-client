@@ -65,6 +65,9 @@ export class ProductsComponent implements OnInit {
       ]
 
         };
+
+
+
         this.cartService.addToCart(newItem).subscribe(
           (response: any) => {
             console.log('Product added to cart:', response);

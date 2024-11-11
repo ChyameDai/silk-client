@@ -39,18 +39,14 @@ export class CartService {
     );
   }
 
-  addToCart(newItem: AddItemsToCartRequest): Observable<CartResponse> {
+  addToCart(newItem: AddItemsToCartRequest): Observable<Boolean> {
     const userId = this.authService.getUserProfile()?.id;
     if (!userId) {
       console.error('No user ID available for adding to cart');
       return throwError(() => new Error('No user ID'));
     }
-
-
-
     console.log('Adding to cart:', newItem);
-
-    return this.http.post<CartResponse>(`${this.apiUrl}/add`, newItem).pipe(
+    return this.http.post<Boolean>(`${environment.apiBaseUrl}${environment.cart.add}`, newItem).pipe(
       tap(response => console.log('Server response for add to cart:', response)),
       catchError((error) => {
         console.error('Error adding to cart:', error);
