@@ -14,6 +14,8 @@ import { ShippingComponent } from './components/shipping/shipping.component';
 import { ShippingService } from '../../services/shipping.service';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CartService } from '../../services/cart.service';
+import { NavbarComponent } from '../shared/components/navbar/navbar.component';
+import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 
 
 
@@ -27,7 +29,9 @@ import { CartService } from '../../services/cart.service';
     ProductDetailsComponent,
     PaymentComponent,
     ShippingComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    NavbarComponent,
+    OrderConfirmationComponent
 
   ],
   imports: [

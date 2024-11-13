@@ -45,14 +45,15 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   private loadCart(): void {
+    this.isLoading=true;
     const subscription = this.cartService.loadCart().pipe(
       tap((cartResponses: CartResponse) => {
         console.log('Cart loaded:', cartResponses);
-        this.isLoading = false;
-        this.notificationService.showNotification('success', 'Cart Loaded');
+        this.isLoading = true;
         console.log('Cart loaded: 53', cartResponses);
         this.cart = cartResponses;
         if (this.cart) {
+          this.isLoading = false;
           console.log('Cart loaded: 55', this.cart);
           this.groupedItems = this.groupItemsByStore(this.cart.items.products);
           this.totalAmount = this.cart.totalCartAmount;
@@ -63,7 +64,8 @@ export class CartComponent implements OnInit, OnDestroy {
       catchError(error => {
         this.isLoading = false;
         console.error('Error loading cart:', error);
-        this.notificationService.showNotification('failure', 'Error loading  cart');
+        this.cart = null;
+
         return of(null);
       })
     ).subscribe();

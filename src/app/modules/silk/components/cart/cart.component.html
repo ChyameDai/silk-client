@@ -1,10 +1,11 @@
 <ng-container>
   <!-- Loading State -->
-  <div class="loading-container" *ngIf="!cart" role="alert" aria-live="polite">
-    <div class="spinner" aria-hidden="true"></div>
+  <div class="loading-container" *ngIf="this.isLoading" role="alert" aria-live="polite">
+    <div class="spinner"  aria-hidden="true"></div>
     <span class="loading-text">Loading your shopping cart...</span>
+    <app-loading-spinner [isActive]="isLoading"></app-loading-spinner>
   </div>
-<app-loading-spinner [isActive]="this.isLoading"></app-loading-spinner>
+
   <!-- Main Cart Content -->
   <div *ngIf="cart" class="cart-container" role="main" aria-label="Shopping Cart">
     <!-- Cart Header -->
@@ -129,13 +130,14 @@
     </ng-container>
 
     <!-- Empty Cart State -->
-    <div *ngIf="totalItemCount === 0" class="empty-cart" role="alert">
-      <div class="empty-content">
-        <i class="fas fa-shopping-cart"></i>
-        <h2>Your cart is empty</h2>
-        <p>Find something amazing to fill it up</p>
-        <button routerLink="/products">Start Shopping</button>
-      </div>
+
+  </div>
+  <div *ngIf="!this.cart" class="empty-cart" role="alert">
+    <div class="empty-content">
+      <i class="fas fa-shopping-cart"></i>
+      <h2>Your cart is empty</h2>
+      <p>Find something amazing to fill it up</p>
+      <button routerLink="/silk/products">Start Shopping</button>
     </div>
   </div>
 </ng-container>

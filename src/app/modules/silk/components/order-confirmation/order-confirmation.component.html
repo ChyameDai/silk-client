@@ -1,0 +1,63 @@
+<div class="order-confirmation" *ngIf="order">
+  <div class="success-banner">
+    <i class="fas fa-check-circle"></i>
+    Order Placed Successfully
+  </div>
+
+  <div class="success-header">
+    <i class="fas fa-check-circle"></i>
+    <h2>Thank You for Your Order!</h2>
+    <p class="order-id">Order #{{ order.orderId }}</p>
+  </div>
+
+
+  <div class="summary-section">
+    <h3>Order Summary</h3>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span class="label">Order Status:</span>
+        <span class="value" [ngClass]="getStatusClass()">{{ order.status }}</span>
+      </div>
+
+      <div class="summary-item">
+        <span class="label">Payment Amount:</span>
+        <span class="value">${{ order.payment.amount.toFixed(2) }}</span>
+      </div>
+
+      <div class="summary-item">
+        <span class="label">Payment Method:</span>
+        <span class="value">{{ order.payment.paymentMethod }}</span>
+      </div>
+
+      <div class="summary-item">
+        <span class="label">Payment Date:</span>
+        <span class="value">{{ formatDate(order.payment.paymentDate) }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="shipping-section">
+    <h3>Shipping Details</h3>
+    <div class="address">
+      <p>{{ order.shipping.addressLine1 }}</p>
+      <p *ngIf="order.shipping.addressLine2">{{ order.shipping.addressLine2 }}</p>
+      <p>{{ order.shipping.city }}, {{ order.shipping.state }} {{ order.shipping.postalCode }}</p>
+      <p>{{ order.shipping.country }}</p>
+    </div>
+  </div>
+
+  <div class="products-section">
+    <h3>Items Ordered</h3>
+    <div class="products-list">
+      <div *ngFor="let product of order.products.products" class="product-item">
+        <span class="product-name">{{ product.productName }}</span>
+        <span class="product-quantity">Qty: {{ product.quantity }}</span>
+        <span class="product-price">${{ product.productPrice }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="error-message" *ngIf="order.errorMessages">
+    <p class="text-danger">{{ order.errorMessages }}</p>
+  </div>
+</div>

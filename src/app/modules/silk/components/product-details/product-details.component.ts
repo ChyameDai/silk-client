@@ -73,7 +73,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       tap((response: any) => {
         if (response?.storeProducts?.length > 0) {
           this.product = response.storeProducts[0];
-          this.notificationService.showNotification('success', 'Product loaded successfully');
+
 
           this.addToRecentlyViewed(this.product);
           this.checkCartStatus(id); // Refresh cart status when product loads

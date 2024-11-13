@@ -41,7 +41,6 @@ export class ProductsComponent implements OnInit {
     ).subscribe(
       (response: any) => {
         if (response && response.products) {
-          this.notificationService.showNotification('success', 'Products Loaded');
           this.products = [...this.products, ...response.products]; // Accumulate products
 
           if (response.products.length < this.pageSize) {

@@ -5,6 +5,7 @@ import { CreateShippingAddressRequest, CartResponse, PaymentDetails, CheckOutReq
 import { ShippingAddress } from '../../../../models/app.models';
 import { OrdersService } from '../../../../services/orders.service';
 import { NotificationService } from '../../../../services/notification.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,10 +20,14 @@ export class CheckoutComponent implements OnInit {
   isNewShippingAddress: boolean = false;
   newAddress: CreateShippingAddressRequest | null = null;
   paymentDetails!: PaymentDetails;
+  checkOutResponse : CheckOutResponse | null = null;
+  isCheckOutSuccess: boolean = false;
+  isLoading: boolean = false;
 
   constructor(private cartService: CartService,
     private orderService: OrdersService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +61,9 @@ export class CheckoutComponent implements OnInit {
   onPaymentConfirmed(paymentDetails: any): void {
     this.paymentDetails = paymentDetails;
     //set payment id based on payment method
+    this.isLoading = true;
     if (paymentDetails.method === 'creditCard') {
+
       this.paymentDetails.methodId = 1;
     }
     console.log('Payment Details:', paymentDetails);
@@ -73,25 +80,23 @@ export class CheckoutComponent implements OnInit {
         isNewShippingAddress: this.isNewShippingAddress,
         newAddress: this.isNewShippingAddress ? this.newAddress : null
       };
+this.orderService.checkout(orderRequest).subscribe(response => {
+      this.checkOutResponse = response;
+      console.log('Order placed:', response);
+      this.isCheckOutSuccess = true;
+      this.isLoading = false;
+      this.orderService.setCheckoutResponse(response);
+      this.notificationService.showNotification('success', 'Order placed successfully');
+      this.router.navigate(['/silk/confirmation']);
+      this.cartService.loadCart().subscribe(() => {
 
-      console.log('Final Order:', orderRequest);
-      this,this.orderService.checkout(orderRequest).subscribe(response => {
+      });
+    });
 
-        (response: CheckOutResponse) => {
-          if (response.status === 'success') {
-            console.log('Order created successfully:', response);
-            // Add logic to navigate to order confirmation page
 
-            this.notificationService.showNotification('success', 'Order created successfully');
-          } else {
-            console.error('Order creation failed:', response.errorMessages);
-            this.notificationService.showNotification('failure', 'Order creation failed');
-          }
-        }
-      }
-    );
       // Add logic to send orderRequest to your backend
     } else {
+      this.isLoading = false;
       console.warn('Order could not be completed. Missing payment or shipping info.');
     }
   }

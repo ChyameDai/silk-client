@@ -7,6 +7,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SilkHomeComponent } from './components/silk-home/silk-home.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 
 const routes: Routes = [
 {
@@ -20,6 +21,7 @@ const routes: Routes = [
       {path:'home', component: SilkHomeComponent},
       {path:"store-product/:id", component: ProductDetailsComponent},
       {path:"checkout", component: CheckoutComponent},
+      {path:'confirmation', component: OrderConfirmationComponent},
       { path: '', redirectTo: 'home', pathMatch: 'full' } // Default route
     ]
   },

@@ -45,6 +45,8 @@ export class CartService {
       catchError(error => {
         console.error('Error loading cart:', error);
         return throwError(() => error);
+        //if you get error 400 , that means there is no cart for the user handle it accordingly
+
       })
     );
   }
@@ -63,6 +65,8 @@ export class CartService {
           : this.notificationService.showNotification('failure', 'Failed to add product');
         if (response) {
           this.cacheValid = false; // Invalidate cache
+          // update the cart value from server
+          this.loadCart().subscribe();
         }
       }),
       catchError(error => {

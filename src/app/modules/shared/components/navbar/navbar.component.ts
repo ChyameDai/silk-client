@@ -1,18 +1,39 @@
-import { Component, Input, HostListener, OnInit } from '@angular/core';
+import { Component, Input, HostListener, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { NavigationItem } from '../../../../models/app.models';
+import { AuthService } from '../../../../services/auth-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
-  @Input() navItems: NavigationItem[] = []; // Array of navigation items
+export class NavbarComponent implements OnInit, OnChanges {
+navItems: NavigationItem[] = []; // Array of navigation items
   isMenuOpen: boolean = false; // Controls mobile menu visibility
   isMobileView: boolean = false; // Detects if viewport is mobile
 
+  isLoginPage: boolean = false; // Track if the current route is the login page
+constructor(private authService:AuthService, private acrivatedRoute: ActivatedRoute, private router: Router) {}
+
+ngOnChanges(changes: SimpleChanges): void {
+  if (changes['navItems']) {
+    this.navItems = changes['navItems'].currentValue;
+  }
+  if (changes['isLoginPage']) {
+    this.isLoginPage = changes['isLoginPage'].currentValue;
+  }
+}
   ngOnInit() {
-    this.checkViewport();
+
+
+   const user= this.authService.getUserProfile();
+   this.isLoginPage = user ? false : true;
+    this.navItems =[      { label: 'Home', link: '/silk/home' },
+      { label: 'Products', link: '/silk/products' },
+      { label: 'Cart', link: '/silk/cart' },
+      { label: 'Orders', link: '/silk/orders' },
+      { label: 'Profile', link: '/silk/profile' },]
   }
 
   @HostListener('window:resize')
@@ -41,5 +62,9 @@ export class NavbarComponent implements OnInit {
 
   closeMenu() {
     this.isMenuOpen = false;
+  }
+  onLogout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

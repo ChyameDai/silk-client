@@ -1,4 +1,10 @@
-
+<div class="auth-container">
+  <!-- Tab Navigation -->
+  <div class="tab-navigation">
+    <button (click)="selectedTab = 'login'" [class.active]="selectedTab === 'login'">Login</button>
+    <button (click)="selectedTab = 'register'" [class.active]="selectedTab === 'register'">Register</button>
+  </div>
+  <ng-container *ngIf="selectedTab === 'login'">
 <div class="login-container">
 
   <h2 class="login-title">Login</h2>
@@ -37,3 +43,7 @@
     ></app-button>
   </div>
 </div>
+</ng-container>
+<ng-container *ngIf="selectedTab === 'register'">
+  <app-register></app-register>
+</ng-container>

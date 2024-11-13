@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   passwordInvalid = false;
   loading = false; // New loading flag
   isMobile = false;
+  selectedTab: 'login' | 'register' = 'login';
   constructor(private authService: AuthService,private router:Router) {}
 
   ngOnInit(): void {
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
     }
     // Check if user is already logged in
     if (this.authService.isLoggedIn()) {
+
       // Redirect to home page or dashboard
       this.router.navigate(['/silk']);
     }

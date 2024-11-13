@@ -20,27 +20,16 @@ navItems!: NavigationItem[];
       //check if user is logged in
       const user = this.authService.getUserProfile();
       if(user){
-        this.navItems = this.authService.getUserNavItems();
-        console.log(user);
 
-        this.navItems = [
-          { label: 'Home', link: '/silk/home' },
-          { label: 'Products', link: '/silk/products' },
-          { label: 'Cart', link: '/silk/cart' },
-          { label: 'Orders', link: '/silk/orders' },
-          { label: 'Profile', link: '/silk/profile' },
+        console.log('User:', user);
+        if (user.role ==='client' || user.role ==='store') {
+          this.router.navigate(['/silk/products']);
+        }
+          else{
+            this.router.navigate(['/login']);
+          }
 
-        ];
-        this.router.navigate(['/silk']);
-
-      }
-      else{
-        this.navItems = [
-          { label: 'Login', link: '/login' },
-          { label: 'Register', link: '/login/register' },
-        ];
-        this.router.navigate(['/login']);
-      }
+        }
 
 
 

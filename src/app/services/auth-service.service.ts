@@ -60,16 +60,17 @@ export class AuthService {
   isLoggedIn(): boolean {
     return this.authStatus.getValue();
   }
+  logOut(): void {
+    this.authStatus.next(false);
+    this.userProfile.next(null);
+    localStorage.removeItem(environment.storage.authToken);
+    this.router.navigate(['/login']);
+  }
 
-getUserNavItems():NavigationItem[]{
-  //hardcoded navigation items
-  return [
-    {label: 'Home', link: '/home'},
-    {label: 'Products', link: '/products'},
-    {label: 'Orders', link: '/orders'},
-    {label: 'Profile', link: '/profile'},
-  ];
-}
+
+
+
+
 
 
 }

@@ -13,7 +13,7 @@ import { NotificationService } from './services/notification.service';
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+
   ],
   imports: [
     BrowserModule,

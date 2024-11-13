@@ -99,3 +99,28 @@
   object-fit: cover; // Ensures the image covers the circular container
   object-position: center; // Keeps the image centered within the container
 }
+
+.logout-button {
+  margin-left: auto; /* Pushes logout button to the right */
+
+  .logout-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #d9534f; /* Logout button color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: #c9302c; /* Darker shade on hover */
+      transform: scale(1.05);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    }
+  }
+}
