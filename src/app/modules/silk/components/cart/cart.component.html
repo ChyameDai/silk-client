@@ -64,20 +64,20 @@
                       type="checkbox"
                       [checked]="selectedItems.has(item.storeProductId)"
                       (change)="toggleItemSelection(item.storeProductId)"
-                      [attr.aria-label]="'Select ' + item.price">
+                      [attr.aria-label]="'Select ' + item.productPrice">
                   </div>
                   <div class="item-image" role="img" [attr.aria-label]="item.productName + ' product image'">
                     <button (click)="moveToWishlist([item.storeProductId])">Save for Later</button>
                   </div>
                   <div class="item-details">
                     <h4>{{ item.productName }}</h4>
-                    <p class="item-price">{{ formatPrice(item.price) }} each</p>
+                    <p class="item-price">{{ formatPrice(item.productPrice) }} each</p>
                     <div class="quantity-control" role="group" [attr.aria-label]="'Quantity controls for ' + item.productName">
                       <button (click)="updateQuantity(item.storeProductId, item.quantity - 1)" [disabled]="item.quantity <= 1">-</button>
                       <input type="number" [value]="item.quantity" (change)="handleQuantityChange($event, item.storeProductId)" min="1">
                       <button (click)="updateQuantity(item.storeProductId, item.quantity + 1)">+</button>
                     </div>
-                    <p class="item-total">Item Total: {{ formatPrice(item.price * item.quantity) }}</p>
+                    <p class="item-total">Item Total: {{ formatPrice(item.productPrice * item.quantity) }}</p>
                   </div>
                 </div>
               </div>

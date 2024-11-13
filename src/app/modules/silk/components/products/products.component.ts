@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AddItemRequest, AddItemsToCartRequest, UserProduct } from '../../../../models/app.models';
 import { ProductService } from '../../../../services/product.service';
 import { finalize } from 'rxjs/operators';
@@ -14,8 +14,12 @@ import { NotificationService } from '../../../../services/notification.service';
 })
 export class ProductsComponent implements OnInit {
   products: UserProduct[] = [];
-  loading: boolean = true;
+  loading: boolean = false;
   error: string | null = null;
+  currentPage = 0;
+  pageSize = 5;
+  isLoadingMore: boolean = false; // For loading spinner at the bottom
+  allProductsLoaded: boolean = false; // To prevent further loading when no more products are available
 
   constructor(private productService: ProductService, private router: Router,
      private cartService:CartService,
@@ -25,20 +29,26 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.fetchProducts();
   }
-
   fetchProducts(): void {
-    this.loading = true;
-    this.error = null;
+    if (this.loading || this.isLoadingMore || this.allProductsLoaded ) return; // Prevent multiple requests
 
-    this.productService.getProducts().pipe(
+    this.isLoadingMore = true;
+    this.productService.getProductsPaginated(this.currentPage, this.pageSize).pipe(
       finalize(() => {
         this.loading = false;
+        this.isLoadingMore = false;
       })
     ).subscribe(
       (response: any) => {
         if (response && response.products) {
-          this.notificationService.showNotification('success', 'Product Loaded');
-          this.products = response.products;
+          this.notificationService.showNotification('success', 'Products Loaded');
+          this.products = [...this.products, ...response.products]; // Accumulate products
+
+          if (response.products.length < this.pageSize) {
+            this.allProductsLoaded = true; // Stop loading if no more products are available
+          } else {
+            this.currentPage++; // Move to the next page
+          }
         } else {
           this.error = 'Invalid response format';
           console.error('Invalid response format:', response);
@@ -49,6 +59,14 @@ export class ProductsComponent implements OnInit {
         console.error('Error fetching products:', error);
       }
     );
+  }
+
+  // Scroll event listener to detect when the user scrolls to the bottom
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100 && !this.loading && !this.allProductsLoaded) {
+      this.fetchProducts(); // Load next page
+    }
   }
 
   onProductAction(product: UserProduct, actionType: string): void {

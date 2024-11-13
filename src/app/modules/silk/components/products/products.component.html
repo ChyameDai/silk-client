@@ -33,5 +33,10 @@
       [buttonText2]="'View Details'"
       (actionClick)="onProductAction(product, $event)"
     ></app-product-card>
+
+  </div>
+  <div *ngIf="isLoadingMore && !allProductsLoaded" class="loading-more-spinner">
+    <div class="spinner"></div>
+    <p>Loading more products...</p>
   </div>
 </section>

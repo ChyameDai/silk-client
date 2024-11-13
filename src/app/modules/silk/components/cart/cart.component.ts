@@ -54,9 +54,9 @@ export class CartComponent implements OnInit, OnDestroy {
         this.cart = cartResponses;
         if (this.cart) {
           console.log('Cart loaded: 55', this.cart);
-          this.groupedItems = this.groupItemsByStore(this.cart.items);
+          this.groupedItems = this.groupItemsByStore(this.cart.items.products);
           this.totalAmount = this.cart.totalCartAmount;
-          this.totalItemCount = this.calculateTotalItemCount(this.cart.items);
+          this.totalItemCount = this.calculateTotalItemCount(this.cart.items.products);
           this.calculateOrderSummary();
         }
       }),
@@ -79,7 +79,7 @@ export class CartComponent implements OnInit, OnDestroy {
           acc[store] = { store, items: [], subtotal: 0, tax: 0 };
         }
         acc[store].items.push(item);
-        acc[store].subtotal += (item.price || 0) * (item.quantity || 0);
+        acc[store].subtotal += (item.productPrice || 0) * (item.quantity || 0);
         acc[store].tax = this.calculateTotalTax(acc[store].subtotal);
         return acc;
       }, {})
@@ -108,14 +108,14 @@ export class CartComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     if (quantity < 0 || !this.cart) return;
      //update quantity local
-    const item = this.cart.items.find(item => item.storeProductId === storeProductId);
+    const item = this.cart.items.products.find(item => item.storeProductId === storeProductId);
    //update quantity local cart
     if (item) {
       item.quantity = quantity;
     }
 //update other calculations
-    this.totalAmount = this.cart.items.reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 0), 0);
-    this.totalItemCount = this.calculateTotalItemCount(this.cart.items);
+    this.totalAmount = this.cart.items.products.reduce((sum, item) => sum + (item.productPrice || 0) * (item.quantity || 0), 0);
+    this.totalItemCount = this.calculateTotalItemCount(this.cart.items.products);
     this.calculateOrderSummary();
     const updateRequest: AddItemsToCartRequest = {
       userId: this.authService.getUserProfile()?.id || 0,

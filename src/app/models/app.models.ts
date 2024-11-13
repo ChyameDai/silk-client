@@ -21,7 +21,7 @@ name: any;
   storeProductId: number;
   productName: string;
   quantity: number;
-  price  : number;
+  productPrice  : number;
   storeName: string;
 }
 
@@ -74,7 +74,7 @@ export interface AddItemRequest {
 
 export interface CartResponse {
   cartId: number;
-  items: CartItem[];
+  items: {products:CartItem[]};
   status: string;
   totalCartAmount: number;
   userId: number;
@@ -169,4 +169,14 @@ export interface CheckOutResponse {
     shippingAddressId: number;
     isNewShippingAddress: boolean;
     newAddress: CreateShippingAddressRequest | null;
+  }
+  export interface PaginatedResponse<T> {
+    content: T[];
+    totalElements: number;
+    totalPages: number;
+    size: number;
+    number: number;
+    first: boolean;
+    last: boolean;
+    empty: boolean;
   }

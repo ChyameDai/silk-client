@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, shareReplay, throwError } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { PaginatedResponse } from '../models/app.models';
 
 export interface Product {
   id: number;
@@ -28,12 +29,13 @@ interface ProductCache {
 export class ProductService {
   private cache: ProductCache = {};
   private readonly CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
-  private readonly CACHE_KEYS = {
-    PRODUCTS_LIST: 'products_list',
-    PRODUCT_DETAILS: (id: number) => `product_details_${id}`,
-    PRODUCT_SEARCH: (query: string) => `product_search_${query}`,
+private readonly CACHE_KEYS = {
+    PRODUCTS_LIST: 'products-list',
+    PRODUCT_DETAILS: (id: number) => `product-details-${id}`,
+    PRODUCT_SEARCH: (query: string) => `product-search-${query}`,
+    PAGINATED_PRODUCTS: (page: number, size: number) => `paginated-products-${page}-${size}`
   };
-
+  private readonly DEFAULT_PAGE_SIZE = 10;
   constructor(private http: HttpClient) {
     // Optional: Clear cache when service is initialized
     this.clearExpiredCache();
@@ -57,7 +59,27 @@ export class ProductService {
       })
     );
   }
+  getProductsPaginated(page:number, size:number): Observable<PaginatedResponse<Product>> {
 
+    const cacheKey = this.CACHE_KEYS.PAGINATED_PRODUCTS(page, size);
+    const cachedData = this.getFromCache<PaginatedResponse<Product>>(cacheKey);
+
+    if (cachedData) {
+      console.log(`Returning cached paginated products for page ${page}`);
+      return of(cachedData);
+    }
+
+    return this.http.get<PaginatedResponse<Product>>(
+      `${environment.apiBaseUrl}${environment.products.list}/v2/${size}/${page}`
+    ).pipe(
+      tap(response => this.addToCache(cacheKey, response)),
+      shareReplay(1),
+      catchError(error => {
+        console.error('Error fetching paginated products:', error);
+        return this.handleError(error);
+      })
+    );
+  }
   getProductDetails(id: number): Observable<Product> {
     const cacheKey = this.CACHE_KEYS.PRODUCT_DETAILS(id);
     const cachedData = this.getFromCache<Product>(cacheKey);

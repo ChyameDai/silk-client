@@ -113,7 +113,7 @@ export class CartService {
 
   getItemCount(userId: string): Observable<number> {
     return this.loadCart().pipe(
-      map(cartResponses => cartResponses.items.reduce((sum, cart) => sum + cart.quantity, 0)),
+      map(cartResponses => cartResponses.items.products.reduce((sum, cart) => sum + cart.quantity, 0)),
       tap(total => console.log('Total items in cart:', total)),
       catchError((error) => {
         console.error('Error calculating cart total:', error);
