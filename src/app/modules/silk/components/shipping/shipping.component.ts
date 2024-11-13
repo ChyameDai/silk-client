@@ -14,6 +14,7 @@ export class ShippingComponent implements OnInit {
 
   @Output() addressSelected = new EventEmitter<ShippingAddress>(); // Emits selected address ID
   @Output() newAddressCreated = new EventEmitter<ShippingAddress>(); // Emits new address object
+showAddAddressForm: any;
 
   constructor(private shippingService: ShippingService) {}
 

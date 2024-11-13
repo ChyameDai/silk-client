@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { ShippingAddress } from '../models/app.models';
 import { AuthService } from './auth-service.service';
+import { NotificationService } from './notification.service';
 
 
 interface CacheData<T> {
@@ -28,10 +29,10 @@ export class ShippingService {
   private readonly endpoints = {
     allAddresses: '/api/v1/user/get-all-shipping-addresses/',
     defaultAddress: '/api/v1/user/add-shipping-address/',
-    addAddress: '/api/orders/add-shipping-address'
+    addAddress: '/api/v1/user/add-shipping-address/'
   };
 
-  constructor(private http: HttpClient,private authService:AuthService) {}
+  constructor(private http: HttpClient,private authService:AuthService, private notification: NotificationService) {}
 
   /**
    * Get all shipping addresses with caching
@@ -93,6 +94,7 @@ export class ShippingService {
     return this.http.post<ShippingAddress>(`${this.baseUrl}${this.endpoints.addAddress}${this.authService.getUserProfile()?.id}`, address)
       .pipe(
         tap(newAddress => {
+          this.notification.showNotification('success', 'Address added successfully');
           // Update addresses cache if it exists
           const cachedAddresses = this.addressesCache$.value;
           if (cachedAddresses) {

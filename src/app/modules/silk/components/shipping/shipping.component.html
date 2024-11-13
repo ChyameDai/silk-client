@@ -26,12 +26,16 @@
         </button>
       </li>
     </ul>
+    <button (click)="showAddAddressForm = !showAddAddressForm">
+     Add New Address
+    </button>
   </div>
 
   <!-- Add New Address Form -->
-  <div class="add-address-form">
+  <div class="add-address-form" *ngIf="this.showAddAddressForm">
+
     <h3>Add New Address</h3>
-    <form (ngSubmit)="addAddress()">
+    <form (ngSubmit)="addAddress()" >
       <input type="text" [(ngModel)]="newAddress.addressLine1" name="addressLine1" placeholder="Address Line 1" required />
       <input type="text" [(ngModel)]="newAddress.addressLine2" name="addressLine2" placeholder="Address Line 2" />
       <input type="text" [(ngModel)]="newAddress.city" name="city" placeholder="City" required />
@@ -40,6 +44,9 @@
       <input type="text" [(ngModel)]="newAddress.country" name="country" placeholder="Country" required />
       <button type="submit" [disabled]="!newAddress.addressLine1 || !newAddress.city || !newAddress.state || !newAddress.postalCode || !newAddress.country">
         Add Address
+      </button>
+      <button (click)="showAddAddressForm = !showAddAddressForm">
+        Cancel
       </button>
     </form>
   </div>

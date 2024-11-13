@@ -23,6 +23,7 @@ name: any;
   quantity: number;
   productPrice  : number;
   storeName: string;
+  totalPrice: number;
 }
 
 export interface Cart {
@@ -74,9 +75,7 @@ export interface AddItemRequest {
 
 export interface CartResponse {
   cartId: number;
-  items: {
-    products: CartItem[];
-  };
+  items: CartItem[];
   status: string;
   totalCartAmount: number;
   userId: number;
@@ -127,3 +126,48 @@ export interface PaymentDetails {
   amount: number;
   // other properties of PaymentDetails
 }
+export interface PaymentsDTO {
+  paymentId: number;
+  orderId: number;
+  paymentMethod: string;
+  amount: number; // BigDecimal in Java is usually a number in TypeScript
+  paymentDate: string; // LocalDateTime in Java can be a string in ISO format
+}
+
+
+
+export interface UserProductList {
+  products: UserProduct[];
+}
+
+export interface Shipping {
+  shippingId: number;
+  userId: number;
+  addressLine1: string;
+  addressLine2?: string; // Optional field
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+  isDefault: boolean;
+}
+
+export interface CheckOutResponse {
+  orderId: number;
+  userId: number;
+  payment: PaymentsDTO;
+  products: UserProductList;
+  status: string;
+  shipping: Shipping;
+  errorMessages?: string; // Optional field
+}
+
+
+  export interface CheckOutRequest {
+    cartId: number;
+    totalAmount: number;
+    paymentMethodId: number;
+    shippingAddressId: number;
+    isNewShippingAddress: boolean;
+    newAddress: CreateShippingAddressRequest | null;
+  }

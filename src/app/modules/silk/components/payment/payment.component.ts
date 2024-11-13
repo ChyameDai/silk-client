@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 interface PaymentDetails {
   method: string;
-  amount: number;
+  amount: string |number;
   cardHolderName?: string;
   cardNumber?: string;
 }
@@ -38,7 +38,7 @@ export class PaymentComponent {
     if (this.paymentForm.valid && this.selectedPaymentMethod === 'creditCard') {
       const paymentDetails: PaymentDetails = {
         method: this.selectedPaymentMethod,
-        amount: this.amount,
+        amount: this.amount.toPrecision(2) ,
         cardHolderName: this.paymentForm.value.cardHolderName,
         cardNumber: this.paymentForm.value.cardNumber,
       };

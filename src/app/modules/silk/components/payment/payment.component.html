@@ -51,6 +51,6 @@
       </div>
     </div>
 
-    <button type="submit" [disabled]="!paymentForm.valid">Pay {{ amount | currency:'USD':'symbol':'1.2-2' }}</button>
+    <button type="submit" [disabled]="!paymentForm.valid">Place Order {{ amount | currency:'USD':'symbol':'1.2-2' }}</button>
   </form>
 </section>
