@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://automation-619630888.us-east-2.elb.amazonaws.com:8080/silk',
+  apiBaseUrl: 'https://646637322711silk.luluinventory.com:8081/silk',
 
   // Authentication endpoints
   auth: {
