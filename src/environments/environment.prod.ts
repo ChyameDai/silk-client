@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:8085',
+  apiBaseUrl: 'http://automation-619630888.us-east-2.elb.amazonaws.com:8080/silk',
 
   // Authentication endpoints
   auth: {
@@ -40,7 +40,7 @@ export const environment = {
 
   // Order related endpoints
   orders: {
-    create: '/api/orders/create',
+    checkout: '/api/v1/user/checkout',
     list: '/api/orders',
     details: '/api/orders/:id', // ":id" will be dynamically replaced with the order ID
     cancel: '/api/orders/:id/cancel', // ":id" will be dynamically replaced with the order ID

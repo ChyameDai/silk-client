@@ -52,9 +52,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   private checkCartStatus(productId: number): void {
     const subscription = this.cartService.loadCart().pipe(
       tap(cart => {
-        const cartItem: CartItem | undefined = cart[0].items.products.find(item => item.storeProductId === productId);
+        const cartItem: CartItem | undefined = cart.items.find(item => item.storeProductId === productId);
         this.isInCart = cartItem ? cartItem.storeProductId === this.product.storeProductId : false;
-        this.cartQuantity = cart[0].totalCartAmount
+        this.cartQuantity = cart.totalCartAmount
       }),
       catchError(error => {
         console.error('Error loading cart status:', error);

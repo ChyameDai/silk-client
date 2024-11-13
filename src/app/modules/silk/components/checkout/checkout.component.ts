@@ -38,7 +38,7 @@ export class CheckoutComponent implements OnInit {
 
   private calculateTotal(): void {
     this.totalAmount = this.cart.items.reduce(
-      (sum, item) => sum + item.productPrice * item.quantity,
+      (sum, item) => sum + item.price * item.quantity,
       0
     );
   }

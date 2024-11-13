@@ -21,9 +21,8 @@ name: any;
   storeProductId: number;
   productName: string;
   quantity: number;
-  productPrice  : number;
+  price  : number;
   storeName: string;
-  totalPrice: number;
 }
 
 export interface Cart {

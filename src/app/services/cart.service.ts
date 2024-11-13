@@ -23,14 +23,14 @@ export class CartService {
     console.log('CartService initialized for API handling only');
   }
 
-  loadCart(): Observable<CartResponse[]> {
+  loadCart(): Observable<CartResponse> {
     const userId = this.authService.getUserProfile()?.id;
     if (!userId) {
       console.warn('No user ID available for cart loading');
       return throwError(() => new Error('No user ID available'));
     }
 
-    return this.http.get<CartResponse[]>(`${this.apiUrl}${environment.cart.get}${this.authService.getUserProfile()?.id}`).pipe(
+    return this.http.get<CartResponse>(`${this.apiUrl}${environment.cart.get}${this.authService.getUserProfile()?.id}`).pipe(
       tap(response =>
 
         console.log('Cart loaded from API:', response)),
@@ -102,7 +102,7 @@ export class CartService {
 
   getCartTotal(userId: string): Observable<number> {
     return this.loadCart().pipe(
-      map(cartResponses => cartResponses[0].totalCartAmount),
+      map(cartResponses => cartResponses.totalCartAmount),
       tap(total => console.log('Total cart amount:', total)),
       catchError((error) => {
         console.error('Error calculating cart total:', error);
@@ -113,7 +113,7 @@ export class CartService {
 
   getItemCount(userId: string): Observable<number> {
     return this.loadCart().pipe(
-      map(cartResponses => cartResponses[0].items.products.reduce((sum, cart) => sum + cart.quantity, 0)),
+      map(cartResponses => cartResponses.items.reduce((sum, cart) => sum + cart.quantity, 0)),
       tap(total => console.log('Total items in cart:', total)),
       catchError((error) => {
         console.error('Error calculating cart total:', error);
