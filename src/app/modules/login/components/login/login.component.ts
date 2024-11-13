@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
         console.log('User logged in:', user);
         // Redirect or handle successful login
         this.loading = false; // Reset loading state on success
-        this.router.navigate(['/silk']);
+        this.router.navigate(['/silk/products']);
       },
       error: (err) => {
         console.error('Login failed:', err);
