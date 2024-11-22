@@ -29,7 +29,7 @@
       </span>
     </div>
   </div>
-
+  <app-payment-instructions [orderId]="order.orderId"></app-payment-instructions>
   <!-- Order Items -->
   <div class="order-items-scroll">
     <div class="order-items">
@@ -57,6 +57,7 @@
             <div class="item-total">
               ${{item.totalPrice.toFixed(2)}}
             </div>
+
           </div>
         </div>
       </div>

@@ -1,0 +1,34 @@
+<div class="payment-container">
+  <div class="payment-header" (click)="toggleExpand()">
+    <h3>Payment Details for Order #{{orderId}}</h3>
+    <span class="expand-icon">{{ isExpanded ? '▼' : '▶' }}</span>
+  </div>
+
+  <div class="payment-content" *ngIf="isExpanded">
+    <div *ngIf="loading" class="loading">Loading payment details...</div>
+
+    <ng-container *ngIf="!loading">
+      <div class="payment-list" *ngIf="payments.length > 0; else noPayments">
+        <div class="payment-item" *ngFor="let payment of payments">
+
+          <div class="payment-row">
+            <span class="label">Method:</span>
+            <span>{{payment.paymentMethod}}</span>
+          </div>
+          <div class="payment-row">
+            <span class="label">Amount:</span>
+            <span>{{payment.amount | currency}}</span>
+          </div>
+          <div class="payment-row">
+            <span class="label">Date:</span>
+            <span>{{payment.paymentDate | date:'medium'}}</span>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #noPayments>
+        <div class="no-payments">No payment information available</div>
+      </ng-template>
+    </ng-container>
+  </div>
+</div>

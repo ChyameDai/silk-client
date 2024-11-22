@@ -180,3 +180,14 @@ export interface CheckOutResponse {
     last: boolean;
     empty: boolean;
   }
+  export interface PaymentInstruction {
+    paymentId: number;
+    orderId: number;
+    paymentMethod: string;
+    amount: number;
+    paymentDate: string;
+  }
+
+  export interface PaymentInstructionResponse {
+    payments: PaymentInstruction[];
+  }

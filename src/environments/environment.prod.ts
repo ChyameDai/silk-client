@@ -55,6 +55,7 @@ export const environment = {
     process: '/api/payment/process',
     verify: '/api/payment/verify',
     methods: '/api/payment/methods',
+    getByOrderId: '/api/v1/payments/get-payments-by-order-id/',
   },
 
   // Review & Rating endpoints
@@ -62,6 +63,7 @@ export const environment = {
     create: '/api/reviews/create',
     list: '/api/reviews/product/:id', // ":id" will be dynamically replaced with the product ID
     userReviews: '/api/reviews/user',
+    getByOrderId: '/api/v1/get-payments-by-order-id/',
   },
 
   // Wishlist endpoints

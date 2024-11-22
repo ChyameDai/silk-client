@@ -1,22 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth-service.service';
-import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
-  selector: 'app-silk-home',
-  templateUrl: './silk-home.component.html',
-  styleUrls: ['./silk-home.component.scss'],
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(20px)' }),
-        animate('0.6s ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-      ])
-    ])
-  ],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
-export class SilkHomeComponent implements OnInit {
+export class HomeComponent implements OnInit {
+
   storeName: string = '';
   user: any;
 
@@ -44,3 +36,5 @@ export class SilkHomeComponent implements OnInit {
     this.router.navigate([`/${route}`]);
   }
 }
+
+

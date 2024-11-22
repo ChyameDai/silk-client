@@ -1,0 +1,55 @@
+<div class="silk-home">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div>Welcome to {{storeName}}</div>
+    <p>Your one-stop destination for premium smoke shop products.</p>
+  </div>
+
+  <!-- Announcement Section -->
+  <div class="announcement">
+    <p>🔥 Limited-time offer: Get 20% off on selected items! 🔥</p>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="quick-links">
+    <!-- Shop Products -->
+    <div class="link-card" (click)="navigateTo('silk/products')">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 9H21L19.35 18.87C19.26 19.41 18.79 19.83 18.24 19.93L5.76 22.07C5.21 22.17 4.7 21.82 4.6 21.27L3 9ZM7 18C6.45 18 6 17.55 6 17C6 16.45 6.45 16 7 16C7.55 16 8 16.45 8 17C8 17.55 7.55 18 7 18ZM17 18C16.45 18 16 17.55 16 17C16 16.45 16.45 16 17 16C17.55 16 18 16.45 18 17C18 17.55 17.55 18 17 18ZM16.66 4.34C16.91 4.13 17 3.83 17 3.5C17 3.17 16.91 2.87 16.66 2.66C16.41 2.46 16.11 2.37 15.78 2.37C15.45 2.37 15.16 2.46 14.91 2.66C14.66 2.87 14.57 3.17 14.57 3.5C14.57 3.83 14.66 4.13 14.91 4.34C15.16 4.54 15.45 4.63 15.78 4.63C16.11 4.63 16.41 4.54 16.66 4.34ZM9.57 2.37C9.24 2.37 8.95 2.46 8.7 2.66C8.45 2.87 8.36 3.17 8.36 3.5C8.36 3.83 8.45 4.13 8.7 4.34C8.95 4.54 9.24 4.63 9.57 4.63C9.9 4.63 10.2 4.54 10.45 4.34C10.7 4.13 10.79 3.83 10.79 3.5C10.79 3.17 10.7 2.87 10.45 2.66C10.2 2.46 9.9 2.37 9.57 2.37ZM3 7H21V9H3V7Z" />
+      </svg>
+      <h3>Shop Products</h3>
+    </div>
+
+    <!-- Offers & Deals -->
+    <div class="link-card" (click)="navigateTo('/silk/offers')">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 3H7C5.89 3 5.01 3.9 5.01 5L5 19C5 20.1 5.89 21 7 21H17C18.1 21 19 20.1 19 19V5C19 3.9 18.1 3 17 3ZM7 5H17V19H7V5ZM11.5 8.5C12.33 8.5 13 9.17 13 10C13 10.83 12.33 11.5 11.5 11.5C10.67 11.5 10 10.83 10 10C10 9.17 10.67 8.5 11.5 8.5ZM11.5 13.5C12.33 13.5 13 14.17 13 15C13 15.83 12.33 16.5 11.5 16.5C10.67 16.5 10 15.83 10 15C10 14.17 10.67 13.5 11.5 13.5Z" />
+      </svg>
+      <h3>Offers & Deals</h3>
+    </div>
+
+    <!-- Your Orders -->
+    <div class="link-card" (click)="navigateTo('/silk/orders')">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 4H6L8 16H16L18 4H21V2H3V4ZM6 18C5.45 18 5 18.45 5 19C5 19.55 5.45 20 6 20C6.55 20 7 19.55 7 19C7 18.45 6.55 18 6 18ZM18 18C17.45 18 17 18.45 17 19C17 19.55 17.45 20 18 20C18.55 20 19 19.55 19 19C19 18.45 18.55 18 18 18ZM15.58 4L14.78 8H9.22L8.42 4H15.58Z" />
+      </svg>
+      <h3>Your Orders</h3>
+    </div>
+
+    <!-- View Cart -->
+    <div class="link-card" (click)="navigateTo('/silk/cart')">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 4H3V6H7L10 13L8.24 15.04C8.09 15.22 8 15.45 8 15.71V16.5C8 16.78 8.22 17 8.5 17H17V15H9.42C9.48 14.92 9.52 14.84 9.56 14.76L11 13H15.55C15.84 13 16.11 12.84 16.24 12.59L19.87 6.41C20.02 6.14 20.02 5.8 19.88 5.53C19.74 5.26 19.47 5.1 19.18 5.1H7.18L7 4ZM17 18C16.45 18 16 18.45 16 19C16 19.55 16.45 20 17 20C17.55 20 18 19.55 18 19C18 18.45 17.55 18 17 18ZM10 18C9.45 18 9 18.45 9 19C9 19.55 9.45 20 10 20C10.55 20 11 19.55 11 19C11 18.45 10.55 18 10 18Z" />
+      </svg>
+      <h3>View Cart</h3>
+    </div>
+
+    <!-- Support -->
+    <div class="link-card" (click)="navigateTo('support')">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3C6.48 3 2 7.48 2 13C2 17.41 5.07 21.15 9.3 21.9L12 23L14.7 21.9C18.93 21.15 22 17.41 22 13C22 7.48 17.52 3 12 3ZM12 20C8.13 20 5 16.87 5 13C5 9.13 8.13 6 12 6C15.87 6 19 9.13 19 13C19 16.87 15.87 20 12 20ZM12 8C10.34 8 9 9.34 9 11C9 11.66 9.23 12.27 9.64 12.73L6.85 15.52C6.64 15.73 6.64 16.1 6.85 16.31C7.06 16.52 7.43 16.52 7.64 16.31L10.43 13.52C10.89 13.95 11.5 14.18 12 14.18C13.66 14.18 15 12.84 15 11.18C15 9.52 13.66 8 12 8Z" />
+      </svg>
+      <h3>Support</h3>
+    </div>
+  </div>
+</div>

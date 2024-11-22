@@ -17,6 +17,13 @@ import { CartService } from '../../services/cart.service';
 import { NavbarComponent } from '../shared/components/navbar/navbar.component';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 import { OrderDetailsComponent } from './components/orders/order-details/order-details.component';
+import { PaymentInstructionsComponent } from './components/payment/payment-instructions/payment-instructions.component';
+import { SupportComponent } from './components/support/support.component';
+import { AboutComponent } from './components/about/about.component';
+import { OffersComponent } from './components/offers/offers.component';
+import { NewarrivalsComponent } from './components/newarrivals/newarrivals.component';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 
@@ -34,7 +41,15 @@ import { OrderDetailsComponent } from './components/orders/order-details/order-d
     NavbarComponent,
     OrdersComponent,
     OrderDetailsComponent,
-    OrderConfirmationComponent
+    OrderConfirmationComponent,
+    PaymentInstructionsComponent,
+    SupportComponent,
+    AboutComponent,
+    OffersComponent,
+    NewarrivalsComponent,
+    CategoriesComponent,
+    HomeComponent
+
 
   ],
   imports: [

@@ -55,6 +55,8 @@ export const environment = {
     process: '/api/payment/process',
     verify: '/api/payment/verify',
     methods: '/api/payment/methods',
+    getByOrderId: '/api/v1/payments/get-payments-by-order-id/',
+
   },
 
   // Review & Rating endpoints

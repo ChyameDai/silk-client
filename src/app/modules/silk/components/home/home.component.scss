@@ -1,0 +1,140 @@
+// Color Palette
+$color-text-primary: #ffffff; // Main text color (white)
+$color-text-secondary: #b3b3b3; // Secondary text color (light gray)
+$color-text-tertiary: #6f6f6f; // Tertiary text color (darker gray)
+
+$color-background-dark: #1a1a1a; // Primary dark background
+$color-background-light: #2a2a2a; // Lighter dark background for cards
+$color-background-hover: #252525; // Hover state background for buttons/cards
+
+$color-accent: #ff6f61; // Main accent color (vibrant orange-red)
+$color-accent-hover: #ff5733; // Hover state for accent elements (brighter orange)
+$color-accent-secondary: #ff914d; // Secondary accent for highlights
+
+$color-danger: #ff4d4d; // Error/danger (bright red)
+$color-success: #4caf50; // Success (green)
+$color-warning: #ffc107; // Warning (yellow)
+$color-info: #2196f3; // Information (blue)
+
+// Gradients
+$gradient-accent: linear-gradient(135deg, #ff6f61, #ff914d); // Gradient for vibrant accents
+$gradient-secondary: linear-gradient(to right, #4caf50, #2196f3); // Secondary gradient (green to blue)
+$gradient-hover: linear-gradient(135deg, #ff5733, #ff914d); // Gradient for hover states
+
+// Shadows
+$shadow-card: 0 4px 10px rgba(0, 0, 0, 0.3); // Card shadow
+$shadow-button: 0 2px 5px rgba(255, 111, 97, 0.5); // Button shadow for hover/active states
+
+// Typography
+$font-size-title: 2rem; // Main title size
+$font-size-subtitle: 1.25rem; // Subtitle size
+$font-size-label: 1rem; // Label text size
+$font-size-button: 1rem; // Button text size
+$font-size-small: 0.875rem; // Small text size
+
+// Borders
+$border-radius-small: 5px; // Small border radius
+$border-radius-medium: 10px; // Medium border radius
+$border-radius-large: 20px; // Large border radius
+
+// Transitions
+$transition-duration: 0.3s; // Standard transition duration
+$transition-ease: ease-in-out; // Transition timing function
+
+// Additional Colors for Specific States
+$color-hover-overlay: rgba(0, 0, 0, 0.5); // Semi-transparent hover overlay
+$color-shadow-accent: rgba(255, 111, 97, 0.5); // Shadow for accent elements
+$color-border: #404040; // Neutral border color
+$color-highlight: #ffd700; // Highlight for special elements (gold-like)
+$color-card-dark: #2a2a2a; // Dark card background
+.silk-home {
+  background: linear-gradient(to bottom, #1a1a1a, #0d0d0d);
+  color: $color-text-primary;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+
+  .hero-section {
+    text-align: center;
+    margin-bottom: 3rem;
+    h1 {
+      font-size: $font-size-title;
+      color: $color-accent;
+      text-shadow: 0 0 20px rgba($color-accent, 0.8);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    p {
+      margin-top: 1rem;
+      font-size: $font-size-subtitle;
+      color: $color-text-secondary;
+    }
+  }
+
+  .quick-links {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    width: 100%;
+    max-width: 1200px;
+
+    .link-card {
+      background: $color-card-dark;
+      padding: 2rem;
+      border-radius: $border-radius-medium;
+      text-align: center;
+      box-shadow: $shadow-card;
+      transition: transform $transition-duration $transition-ease, background $transition-duration $transition-ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-5px);
+        background: $color-accent-hover;
+      }
+
+      i {
+        font-size: 3rem;
+        color: $color-accent;
+        margin-bottom: 1rem;
+      }
+
+      h3 {
+        font-size: $font-size-button;
+        color: $color-text-primary;
+      }
+    }
+  }
+
+  .announcement {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: $gradient-accent;
+    color: #fff;
+    text-align: center;
+    border-radius: $border-radius-small;
+    animation: fadeInUp 1s ease-in-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
