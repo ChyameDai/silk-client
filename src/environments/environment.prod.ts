@@ -22,7 +22,7 @@ export const environment = {
 
   // Product related endpoints
   products: {
-    list: '/api/v1/user/products/Test Store 3',
+    list: '/api/v1/user/products/',
     details: '/api/v1/user/store-products/details/', // ":id" will be dynamically replaced with the product ID
     search: '/api/products/search',
     categories: '/api/products/categories',
@@ -41,7 +41,7 @@ export const environment = {
   // Order related endpoints
   orders: {
     checkout: '/api/v1/user/checkout',
-    list: '/api/orders',
+    list: '/api/v1/orders/userId/',
     details: '/api/orders/:id', // ":id" will be dynamically replaced with the order ID
     cancel: '/api/orders/:id/cancel', // ":id" will be dynamically replaced with the order ID
     history: '/api/orders/history',
