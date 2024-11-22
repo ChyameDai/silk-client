@@ -1,0 +1,275 @@
+// Parent Component Styles (orders.component.scss)
+
+// Color System
+$background-dark: #121212;
+$surface-dark: #1e1e1e;
+$elevated-dark: #242424;
+
+// Brand Colors
+$primary-900: #0d160f;
+$primary-700: #1e3a29;
+$primary-500: #3c7a4f;
+$primary-300: #6fb585;
+$primary-200: #93d0a8;
+
+// Smoke Effects
+$smoke-900: #1a1625;
+$smoke-700: #403259;
+$smoke-500: #664e8c;
+
+// Status Colors
+$success: #4caf50;
+$warning: #ff9800;
+$error: #f44336;
+
+// Neutral Colors
+$neutral-900: #121212;
+$neutral-700: #242424;
+$neutral-600: #2c2c2c;
+$neutral-500: #363636;
+$neutral-300: #5c5c5c;
+$neutral-200: #737373;
+$neutral-100: #8a8a8a;
+$neutral-50: #a3a3a3;
+
+// Shadows
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+$shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
+
+// Mixins
+@mixin mobile {
+  @media (max-width: 767px) { @content; }
+}
+
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: 1023px) { @content; }
+}
+
+@mixin desktop {
+  @media (min-width: 1024px) { @content; }
+}
+
+// Container Layout
+.orders-container {
+  min-height: 100vh;
+  background: $background-dark;
+  color: $neutral-50;
+
+  @include desktop {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  @include mobile {
+    position: relative;
+    overflow-x: hidden;
+  }
+}
+
+// Orders List Panel
+.orders-list {
+  background: $surface-dark;
+  border-radius: 12px;
+  box-shadow: $shadow-md;
+  display: flex;
+  flex-direction: column;
+
+  @include desktop {
+    height: calc(100vh - 2rem);
+  }
+
+  @include mobile {
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease-in-out;
+
+    &.minimized {
+      transform: translateX(-100%);
+    }
+  }
+
+  // List Header
+  .list-header {
+    padding: 1.25rem;
+    border-bottom: 1px solid $neutral-700;
+
+    h2 {
+      color: $primary-200;
+      margin: 0 0 1rem;
+    }
+
+    .search-bar {
+      position: relative;
+
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        background: $elevated-dark;
+        border: 1px solid $neutral-600;
+        border-radius: 8px;
+        color: $neutral-50;
+
+        &::placeholder {
+          color: $neutral-300;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: $primary-500;
+        }
+      }
+    }
+  }
+}
+
+// Order Cards Grid
+.orders-grid {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $neutral-700;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $primary-500;
+    border-radius: 2px;
+  }
+}
+
+// Order Card
+.order-card {
+  background: linear-gradient(145deg, $elevated-dark, $smoke-900);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid $neutral-600;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: $primary-500;
+    box-shadow: $shadow-lg;
+  }
+
+  &.selected {
+    background: linear-gradient(145deg, $smoke-900, $primary-900);
+    border-color: $primary-300;
+
+    .preview-arrow {
+      transform: rotate(90deg);
+    }
+  }
+
+  // Card Header
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+
+    .order-id {
+      font-weight: 600;
+      color: $primary-300;
+    }
+
+    .order-date {
+      color: $neutral-200;
+      font-size: 0.875rem;
+    }
+  }
+
+  // Order Summary
+  .order-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+
+    .order-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.875rem;
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      &.pending {
+        background: rgba($warning, 0.15);
+        color: $warning;
+        .status-dot { background: $warning; }
+      }
+
+      &.completed {
+        background: rgba($success, 0.15);
+        color: $success;
+        .status-dot { background: $success; }
+      }
+
+      &.cancelled {
+        background: rgba($error, 0.15);
+        color: $error;
+        .status-dot { background: $error; }
+      }
+    }
+
+    .order-total {
+      font-weight: 600;
+      color: $primary-200;
+    }
+  }
+
+  // Items Preview
+  .order-items-preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $neutral-300;
+    font-size: 0.875rem;
+
+    .preview-arrow {
+      transition: transform 0.2s ease;
+    }
+  }
+}
+
+// Loading Spinner
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  color: $primary-300;
+
+  .spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid $primary-500;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

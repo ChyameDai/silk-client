@@ -49,8 +49,8 @@ private readonly CACHE_KEYS = {
       console.log('Returning cached products list');
       return of(cachedData);
     }
-
-    return this.http.get<any>(`${environment.apiBaseUrl}${environment.products.list}`).pipe(
+    const storeName = localStorage.getItem('storeName');
+    return this.http.get<any>(`${environment.apiBaseUrl}${environment.products.list}${storeName}`).pipe(
       tap(response => this.addToCache(cacheKey, response)),
       shareReplay(1),
       catchError(error => {
@@ -68,9 +68,9 @@ private readonly CACHE_KEYS = {
       console.log(`Returning cached paginated products for page ${page}`);
       return of(cachedData);
     }
-
+    const storeName = localStorage.getItem('storeName');
     return this.http.get<PaginatedResponse<Product>>(
-      `${environment.apiBaseUrl}${environment.products.list}/v2/${size}/${page}`
+      `${environment.apiBaseUrl}${environment.products.list}${storeName}/v2/${size}/${page}`
     ).pipe(
       tap(response => this.addToCache(cacheKey, response)),
       shareReplay(1),

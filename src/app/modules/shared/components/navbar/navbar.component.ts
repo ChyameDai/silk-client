@@ -1,4 +1,4 @@
-import { Component, Input, HostListener, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, HostListener, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { NavigationItem } from '../../../../models/app.models';
 import { AuthService } from '../../../../services/auth-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit, OnChanges {
+export class NavbarComponent implements OnInit, OnChanges, OnDestroy {
 navItems: NavigationItem[] = []; // Array of navigation items
   isMenuOpen: boolean = false; // Controls mobile menu visibility
   isMobileView: boolean = false; // Detects if viewport is mobile
@@ -58,13 +58,26 @@ ngOnChanges(changes: SimpleChanges): void {
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+    // Toggle body class for preventing background scroll
+    if (this.isMenuOpen) {
+      document.body.classList.add('menu-open');
+    } else {
+      document.body.classList.remove('menu-open');
+    }
   }
 
   closeMenu() {
     this.isMenuOpen = false;
+    document.body.classList.remove('menu-open');
+  }
+
+  ngOnDestroy() {
+    // Clean up body class if component is destroyed while menu is open
+    document.body.classList.remove('menu-open');
   }
   onLogout() {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
 }

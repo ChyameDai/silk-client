@@ -1,1 +1,79 @@
-<p>orders works!</p>
+<div class="orders-container" [class.details-active]="selectedOrder">
+  <!-- Orders List Panel -->
+  <div class="orders-list" #ordersList [class.minimized]="selectedOrder">
+    <!-- List Header -->
+    <div class="list-header">
+      <h2>Orders</h2>
+      <div class="search-bar">
+        <input type="text" placeholder="Search orders..." class="search-input">
+      </div>
+    </div>
+
+    <!-- Scrollable Orders Grid -->
+    <div class="orders-grid"
+         #ordersGrid
+         (scroll)="onScroll()"
+         tabindex="0"
+         role="list"
+         aria-label="Orders list">
+
+      <!-- Order Cards -->
+      <div class="order-cards-container">
+        <div class="order-card"
+             *ngFor="let order of orders"
+             [class.selected]="selectedOrder?.orderId === order.orderId"
+             (click)="selectOrder(order)"
+             role="listitem"
+             [attr.aria-selected]="selectedOrder?.orderId === order.orderId"
+             tabindex="0">
+          <div class="order-header">
+            <span class="order-id">#{{order.orderId}}</span>
+            <span class="order-date">{{order.orderDate | date:'MMM d, y'}}</span>
+          </div>
+
+          <div class="order-summary">
+            <div class="order-status" [ngClass]="order.status.toLowerCase()">
+              <span class="status-dot"></span>
+              {{order.status}}
+            </div>
+            <div class="order-total">
+              ${{order.totalAmount.toFixed(2)}}
+            </div>
+          </div>
+
+          <div class="order-items-preview">
+            <span class="items-count">{{order.orderItems.length}} items</span>
+            <svg class="preview-arrow" width="20" height="20" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="loading-spinner" *ngIf="loading">
+          <div class="spinner" role="status" aria-label="Loading more orders">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+
+        <!-- End of List Indicator -->
+        <div class="end-of-list" *ngIf="!hasMoreOrders && orders.length > 0">
+          <span>No more orders to load</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Details Container -->
+  <div class="order-details-container"
+       *ngIf="selectedOrder"
+       [@slideInOut]
+       #orderDetails
+       tabindex="0">
+    <app-order-details
+      [order]="selectedOrder"
+      (back)="backToList()">
+    </app-order-details>
+  </div>
+</div>

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CartService } from '../../../../services/cart.service';
 import { AuthService } from '../../../../services/auth-service.service';
 import { NotificationService } from '../../../../services/notification.service';
+import { OrdersService } from '../../../../services/orders.service';
 
 @Component({
   selector: 'app-products',
@@ -23,11 +24,19 @@ export class ProductsComponent implements OnInit {
 
   constructor(private productService: ProductService, private router: Router,
      private cartService:CartService,
+     private orderService: OrdersService,
      private notificationService : NotificationService,
      private authService:AuthService) {}
 
   ngOnInit(): void {
     this.fetchProducts();
+    this.loadOrdersForUser();
+  }
+  loadOrdersForUser(): void {
+    this.orderService.loadOrdersPage(0).subscribe(
+      (response: any) => {
+      }
+    );
   }
   fetchProducts(): void {
     if (this.loading || this.isLoadingMore || this.allProductsLoaded ) return; // Prevent multiple requests

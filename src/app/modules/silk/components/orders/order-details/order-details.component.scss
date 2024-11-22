@@ -1,0 +1,269 @@
+/// Modern Dark Theme Color System
+$background-dark: #121212;
+$surface-dark: #1e1e1e;
+$elevated-dark: #242424;
+
+// Brand Colors
+$primary-900: #0d160f;
+$primary-700: #1e3a29;
+$primary-500: #3c7a4f;
+$primary-300: #6fb585;
+$primary-200: #93d0a8;
+$primary-100: #b7ebcb;
+
+// Smoke Effects Colors
+$smoke-900: #1a1625;
+$smoke-700: #403259;
+$smoke-500: #664e8c;
+$smoke-300: #8f6cbe;
+
+// Status Colors
+$success: #4caf50;
+$warning: #ff9800;
+$error: #f44336;
+
+// Neutral Colors
+$neutral-900: #121212;
+$neutral-700: #242424;
+$neutral-600: #2c2c2c;
+$neutral-500: #363636;
+$neutral-300: #5c5c5c;
+$neutral-200: #737373;
+$neutral-100: #8a8a8a;
+$neutral-50: #a3a3a3;
+
+// Shadows & Effects
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+$shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
+
+// Mixins for responsive design
+@mixin mobile {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: 1023px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1024px) {
+    @content;
+  }
+}
+
+.order-details {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: $surface-dark;
+  padding: 1.25rem;
+
+  // Back Button
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    color: $primary-300;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    @include desktop {
+      display: none;
+    }
+
+    svg {
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      color: $primary-200;
+
+      svg {
+        transform: translateX(-4px);
+      }
+    }
+  }
+
+  // Order Header
+  .header-main {
+    margin-bottom: 1rem;
+
+    h2 {
+      color: $primary-200;
+      margin: 0 0 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    .order-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.875rem;
+
+      &.pending {
+        background: rgba($warning, 0.15);
+        color: $warning;
+      }
+
+      &.completed {
+        background: rgba($success, 0.15);
+        color: $success;
+      }
+
+      &.cancelled {
+        background: rgba($error, 0.15);
+        color: $error;
+      }
+    }
+  }
+
+  // Order Meta
+  .order-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: $neutral-200;
+      font-size: 0.875rem;
+
+      svg {
+        color: $primary-500;
+      }
+    }
+  }
+
+  // Items Scroll Area
+  .order-items-scroll {
+    flex: 1;
+    overflow-y: auto;
+    margin: 0 -1.25rem;
+    padding: 0 1.25rem;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $neutral-700;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $primary-500;
+      border-radius: 2px;
+    }
+  }
+
+  // Order Items
+  .order-item {
+    background: $elevated-dark;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid $neutral-600;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateX(4px);
+      border-color: $primary-500;
+    }
+
+    h3 {
+      color: $primary-200;
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .store-name {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: $neutral-200;
+      font-size: 0.875rem;
+      margin: 0 0 0.75rem;
+
+      svg {
+        color: $primary-500;
+      }
+    }
+
+    .item-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .details-left {
+        display: flex;
+        gap: 1rem;
+        color: $neutral-100;
+        font-size: 0.875rem;
+
+        .quantity {
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+        }
+      }
+
+      .item-total {
+        font-weight: 600;
+        color: $primary-300;
+      }
+    }
+  }
+
+  // Order Summary Footer
+  .order-summary-footer {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid $neutral-600;
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      color: $neutral-200;
+      margin-bottom: 0.75rem;
+    }
+
+    .order-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: $neutral-50;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid $neutral-600;
+
+      span:last-child {
+        color: $primary-200;
+      }
+    }
+  }
+}
+
+// Mobile Optimizations
+@include mobile {
+  .order-details {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+  }
+}

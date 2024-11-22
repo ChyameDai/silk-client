@@ -16,6 +16,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { CartService } from '../../services/cart.service';
 import { NavbarComponent } from '../shared/components/navbar/navbar.component';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
+import { OrderDetailsComponent } from './components/orders/order-details/order-details.component';
 
 
 
@@ -31,6 +32,8 @@ import { OrderConfirmationComponent } from './components/order-confirmation/orde
     ShippingComponent,
     CheckoutComponent,
     NavbarComponent,
+    OrdersComponent,
+    OrderDetailsComponent,
     OrderConfirmationComponent
 
   ],

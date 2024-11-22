@@ -1,20 +1,22 @@
+import { CheckOutResponse, PaymentsDTO, Shipping } from "../../../../../models/app.models";
+
 // Order-related user interface
-interface OrderUser {
+export interface OrderUser {
     userId: number;
     username: string;
     email: string;
     passwordHash: string;
     createdAt: string | null;
   }
-  
+
   // Order-related cart interface
-  interface OrderCart {
+  export interface OrderCart {
     cartId: number;
     user: OrderUser;
     createdAt: string;
     status: string;
   }
-  
+
   // Order base details
   interface OrderBaseDetails {
     orderId: number;
@@ -23,14 +25,14 @@ interface OrderUser {
     orderDate: string;
     status: string;
   }
-  
+
   // Order shipping information
   interface OrderShippingDetails extends Shipping {
     order: OrderBaseDetails;
     shippingDate: string;
     estimatedDeliveryDate: string;
   }
-  
+
   // Order product details
   interface OrderProductDetails {
     productId: number;
@@ -44,14 +46,14 @@ interface OrderUser {
     storeId: number;
     quantity: number;
   }
-  
+
   // Order products container
   interface OrderProductList {
     products: OrderProductDetails[];
   }
-  
+
   // Complete order response
-  export interface OrderDetailResponse extends CheckOutResponse {
+  export interface OrderDetailResponse {
     shipping: OrderShippingDetails;
     products: OrderProductList;
     payment: PaymentsDTO;
@@ -60,7 +62,7 @@ interface OrderUser {
     status: string;
     errorMessages: string | null;
   }
-  
+
   // Optional: Type guard
   export function isOrderDetailResponse(obj: any): obj is OrderDetailResponse {
     return (
@@ -74,6 +76,6 @@ interface OrderUser {
       typeof obj.status === 'string'
     );
   }
-  
+
   // Optional: Order status type for better type safety
   export type OrderStatus = 'PENDING' | 'PAID' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';

@@ -1,126 +1,271 @@
-@import 'variables';
+// Modern Navbar Variables
+$navbar-height: 64px;
+$navbar-mobile-height: 56px;
+$navbar-background: rgba(18, 18, 18, 0.85); // Dark translucent background
+$navbar-mobile-background: rgba(18, 18, 18, 0.95); // More opaque for mobile
+$navbar-border: rgba(255, 255, 255, 0.1);
+$navbar-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$backdrop-blur: 12px;
+
+// Z-index system
+$z-navbar: 1000;
+$z-navbar-dropdown: 1001;
+$z-navbar-overlay: 999;
 
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $navbar-height;
+  background: $navbar-background;
+  backdrop-filter: blur($backdrop-blur);
+  -webkit-backdrop-filter: blur($backdrop-blur);
+  border-bottom: 1px solid $navbar-border;
+  z-index: $z-navbar;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.5rem;
-  background-color: $color-background-dark;
-  box-shadow: 0 4px 10px $color-shadow;
-  width: 97%;
+  padding: 0 1.5rem;
+  transition: all 0.3s ease;
 
-  .navbar-brand {
+  // Ensure content below navbar is properly positioned
+  + * {
+    padding-top: $navbar-height;
+  }
+
+  // Mobile sidebar mode
+  &.sidebar {
+    height: $navbar-mobile-height;
+    background: $navbar-mobile-background;
+
+    + * {
+      padding-top: $navbar-mobile-height;
+    }
+
+    &.sidebar-open {
+      height: 100vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  z-index: $z-navbar-dropdown;
+  position: relative;
+  gap: 1rem;
+
+  .logo-container {
+    height: 100%;
     display: flex;
     align-items: center;
+    padding: 0.5rem 0;
 
-    .brand-logo {
-      color: $color-accent;
-      font-size: 1.5rem;
-      font-weight: bold;
-      text-decoration: none;
-      transition: color $transition-duration $transition-ease;
+    .logo-image {
+      height: 100%;
+      width: auto;
+      max-height: 40px;
+      object-fit: contain;
+    }
+  }
+}
+
+.nav-toggle-button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    display: none;
+    position: fixed;
+    top: $navbar-mobile-height;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $navbar-mobile-background;
+    backdrop-filter: blur($backdrop-blur);
+    -webkit-backdrop-filter: blur($backdrop-blur);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+    overflow-y: auto;
+
+    &.open {
+      display: flex;
+    }
+  }
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-size: 0.9375rem;
+
+  &:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}
+
+// Selector Box Styles
+app-selector-box {
+  width: auto;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  ::ng-deep {
+    .selector-box {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
 
       &:hover {
-        color: $color-accent-hover;
+        background: rgba(255, 255, 255, 0.1);
       }
     }
   }
-
-  .nav-list {
-    display: flex;
-    gap: 1.5rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .nav-item .nav-link {
-    color: $color-text-primary;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-    border-radius: $border-radius-small;
-    transition: background-color $transition-duration $transition-ease, color $transition-duration $transition-ease;
-
-    &:hover {
-      background-color: $color-accent-hover;
-      color: $color-text-primary;
-    }
-  }
-}
-
-// Mobile styles for a sticky bottom navbar
-@media (max-width: 768px) {
-  .navbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 0.5rem 0;
-    justify-content: space-around;
-    box-shadow: 0 -2px 10px $color-shadow; // Shadow on top for bottom alignment
-
-    .navbar-brand {
-      display: none; // Hide the brand logo on mobile
-    }
-
-    .nav-list {
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
-    }
-
-    .nav-item {
-      flex-grow: 1;
-      text-align: center;
-
-      .nav-link {
-        display: block;
-        padding: 0.5rem 0; // Adjust padding for a compact bottom nav
-        font-size: 0.9rem;
-      }
-    }
-  }
-}
-.logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  width: 100px; // Adjust as needed
-  height: 100px;
-  overflow: hidden;
-  border-radius: 50%; // Makes the container circular
-}
-
-.logo-container img {
-  width: 100%; // "Zoom" effect by increasing the size beyond the container
-  height: auto;
-  object-fit: cover; // Ensures the image covers the circular container
-  object-position: center; // Keeps the image centered within the container
 }
 
 .logout-button {
-  margin-left: auto; /* Pushes logout button to the right */
+  margin-left: auto;
 
-  .logout-btn {
-    padding: 8px 16px;
-    font-size: 14px;
-    color: #ffffff;
-    background-color: #d9534f; /* Logout button color */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  @media (max-width: 768px) {
+    margin-left: 0;
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+}
 
-    &:hover {
-      background-color: #c9302c; /* Darker shade on hover */
-      transform: scale(1.05);
-    }
+.logout-btn {
+  background: rgba(239, 68, 68, 0.1);
+  color: rgb(239, 68, 68);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9375rem;
 
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+  &:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}
+
+// Touch interaction improvements
+@media (max-width: 768px) {
+  .nav-link,
+  .logout-btn,
+  .nav-toggle-button {
+    // Improve touch targets
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // Remove highlight on touch
+    -webkit-tap-highlight-color: transparent;
+
+    // Prevent text selection
+    user-select: none;
+  }
+
+  // Add safe area insets for modern mobile browsers
+  .navbar {
+    padding-top: env(safe-area-inset-top);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .nav-list {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+// Adding overlay when mobile menu is open
+.navbar.sidebar.sidebar-open::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: $z-navbar-overlay;
+  pointer-events: none;
+}
+
+// Fix any underlying content scrolling when menu is open
+body.menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+// Safari specific fixes
+@supports (-webkit-touch-callout: none) {
+  .navbar {
+    // Fix for iOS safari bounce scroll
+    position: sticky;
+
+    &.sidebar-open {
+      position: fixed;
     }
   }
 }
